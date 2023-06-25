@@ -1,0 +1,122 @@
+[
+  {
+    "run": "123",
+    "name": "",
+    "surname": "surname",
+    "address": "addr",
+    "comuna": "comuna",
+    "tel": "tel",
+    "account": {
+      "accountNumber": 1123123,
+      "balance": 0
+    }
+  },
+  {
+    "run": "123",
+    "name": "",
+    "surname": "surname",
+    "address": "addr",
+    "comuna": "comuna",
+    "tel": "tel",
+    "account": {
+      "accountNumber": 1123123,
+      "balance": 0
+    }
+  },
+  {
+    "run": "123",
+    "name": "",
+    "surname": "surname",
+    "address": "addr",
+    "comuna": "comuna",
+    "tel": "tel",
+    "account": {
+      "accountNumber": 1123123,
+      "balance": 0
+    }
+  },
+  {
+    "run": "123",
+    "name": "",
+    "surname": "surname",
+    "address": "addr",
+    "comuna": "comuna",
+    "tel": "tel",
+    "account": {
+      "accountNumber": 1123123,
+      "balance": 0
+    }
+  },
+  {
+    "run": "123",
+    "name": "asdas",
+    "surname": "surname",
+    "address": "addr",
+    "comuna": "comuna",
+    "tel": "tel",
+    "account": {
+      "accountNumber": 1123123,
+      "balance": 0
+    }
+  },
+  {
+    "run": "123",
+    "name": "asdas",
+    "surname": "surname",
+    "address": "addr",
+    "comuna": "comuna",
+    "tel": "tel",
+    "account": {
+      "accountNumber": 1123123,
+      "balance": 0
+    }
+  },
+  {
+    "run": "123",
+    "name": "",
+    "surname": "surname",
+    "address": "addr",
+    "comuna": "comuna",
+    "tel": "tel",
+    "account": {
+      "accountNumber": 1123123,
+      "balance": 0
+    }
+  },
+  {
+    "run": "123",
+    "name": "123",
+    "surname": "surname",
+    "address": "addr",
+    "comuna": "comuna",
+    "tel": "tel",
+    "account": {
+      "accountNumber": 1123123,
+      "balance": 0
+    }
+  },
+  {
+    "run": "123",
+    "name": "123",
+    "surname": "surname",
+    "address": "addr",
+    "comuna": "comuna",
+    "tel": "tel",
+    "account": {
+      "accountNumber": 1123123,
+      "balance": 0
+    }
+  },
+  {
+    "run": "123",
+    "name": "123",
+    "surname": "surname",
+    "address": "addr",
+    "comuna": "comuna",
+    "tel": "tel",
+    "account": {
+      "accountNumber": 1123123,
+      "balance": 0
+    }
+  }
+]
