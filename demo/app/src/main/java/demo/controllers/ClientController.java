@@ -8,6 +8,8 @@ import demo.validations.ValidationUtils;
 import java.awt.Component;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.annotation.Nullable;
 import javax.swing.*;
 
 public class ClientController {
@@ -51,6 +53,9 @@ public class ClientController {
                         if (!ValidationUtils.validateRun(run)) {
                                 errorDialog("Rut es invalido", this.form);
                                 return;
+                        } else if (searchByRun(run) != null) {
+                                errorDialog("Cliente ya existe", this.form);
+                                return;
                         } else if (!ValidationUtils.validateTel(tel)) {
                                 errorDialog("Telefono es invalido", this.form);
                                 return;
@@ -74,25 +79,31 @@ public class ClientController {
 
                 // Search a client by run
                 this.clientDetails.searchClient(e -> {
-                        List<Client> clients = this.database.readJsonFromFile(databaseFile);
-                        Client wantedClient = null;
-
-                        if (clients != null) {
-                                String targetRun = clientDetails.getSearchFieldValue();
-                                for (Client client : clients) {
-                                        if (client.run.equals(targetRun)) {
-                                                wantedClient = client;
-                                                break;
-                                        }
-                                }
-                        }
+                        String targetRun = clientDetails.getSearchFieldValue();
+                        Client wantedClient = searchByRun(targetRun);
 
                         this.clientDetails.loadClientData(wantedClient);
                 });
         }
 
-        public void errorDialog(String message, Component component) {
+        private void errorDialog(String message, Component component) {
                 JOptionPane.showMessageDialog(component, message, "Error",  JOptionPane.ERROR_MESSAGE);
         }
-        
+
+        @Nullable
+        private Client searchByRun(String run) {
+                List<Client> clients = this.database.readJsonFromFile(databaseFile);
+                Client wantedClient = null;
+
+                if (clients != null) {
+                        for (Client client : clients) {
+                                if (client.run.equals(run)) {
+                                        wantedClient = client;
+                                        break;
+                                }
+                        }
+                }
+
+                return wantedClient;
+        }
 }
