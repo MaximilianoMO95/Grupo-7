@@ -45,7 +45,7 @@ public class RegisterClientFormView extends JPanel {
 
                 // Input fields (labelName:inputBoxCols)
                 String[] labelsInputText = {
-                       "Nombre:40",  "Apellido Paterno:40", "Apellido Materno:40", "Telefono:40",
+                       "Nombre:40",  "Apellido:40", "Telefono:40",
                         "Domicilio:40", "Comuna:40", "Numero Cuenta:40"
                 };
 

@@ -28,7 +28,7 @@ public class ClientController {
 
                         for (String fieldName : fieldNames) {
                                 String fieldValue = this.form.getFieldValue(fieldName);
-                                if (fieldValue.trim().isEmpty()) {
+                                if (fieldValue == null || fieldValue.trim().isEmpty()) {
                                         emptyFields.add(fieldName);
                                 }
                         }

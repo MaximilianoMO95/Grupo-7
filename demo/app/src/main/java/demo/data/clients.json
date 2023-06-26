@@ -118,5 +118,17 @@
       "accountNumber": 1123123,
       "balance": 0
     }
+  },
+  {
+    "run": "12.413.114-8",
+    "name": "asdsad",
+    "surname": "asdsadsad",
+    "address": "sadsad",
+    "comuna": "sadsad",
+    "tel": "213213213",
+    "account": {
+      "accountNumber": 123123123,
+      "balance": 0
+    }
   }
 ]
