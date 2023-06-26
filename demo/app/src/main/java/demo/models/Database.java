@@ -19,14 +19,24 @@ public class Database<T> {
         }
 
         public void writeJsonToFile(List<T> items, String filePath) {
-                try (Writer writer = new FileWriter(filePath)) {
+                try {
+                        File file = new File(filePath);
+                        file.createNewFile();
+
+                        Writer writer = new FileWriter(filePath);
                         gson.toJson(items, writer);
-                } catch (IOException e) { e.printStackTrace(); }
+                        writer.close();
+
+                } catch (IOException e) {
+                        e.printStackTrace();
+                }
         }
 
         public void writeJsonToFile(T item, String filePath) {
                 List<T> existingItems = readJsonFromFile(filePath);
-                if (existingItems == null) { existingItems = new ArrayList<>(); }
+                if (existingItems == null) {
+                        existingItems = new ArrayList<>();
+                }
 
                 existingItems.add(item);
                 writeJsonToFile(existingItems, filePath);
@@ -35,9 +45,13 @@ public class Database<T> {
         public List<T> readJsonFromFile(String filePath) {
                 List<T> items = new ArrayList<>();
 
-                try (Reader reader = new FileReader(filePath)) {
-                        items = gson.fromJson(reader, type);
-                } catch (IOException e) { e.printStackTrace(); }
+                File file = new File(filePath);
+                if (file.exists()) {
+                        try (Reader reader = new FileReader(filePath)) {
+                                items = gson.fromJson(reader, type);
+
+                        } catch (IOException e) { e.printStackTrace(); }
+                }
 
                 return items;
         }
