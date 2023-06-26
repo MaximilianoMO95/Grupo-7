@@ -2,10 +2,10 @@ package demo.controllers;
 
 import demo.views.ClientDetailsView;
 import demo.views.RegisterClientFormView;
-import demo.models.Account;
-import demo.models.Client;
-import demo.models.Database;
+import demo.models.*;
+import demo.validations.ValidationUtils;
 
+import java.awt.Component;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.*;
@@ -23,20 +23,61 @@ public class ClientController {
 
                 // Register new client
                 this.form.submitData(e -> {
-                        String name = this.form.getFieldValue("Nombre");
-                        
-                        if (name.isEmpty()) {
-                                JOptionPane.showMessageDialog(this.form, "Campo nombre esta vacio", "Error",  JOptionPane.ERROR_MESSAGE);
+                        String[] fieldNames = {"Nombre", "Apellido", "Telefono", "Domicilio", "Comuna", "Numero Cuenta"};
+                        List<String> emptyFields = new ArrayList<>();
+
+                        for (String fieldName : fieldNames) {
+                                String fieldValue = this.form.getFieldValue(fieldName);
+                                if (fieldValue.trim().isEmpty()) {
+                                        emptyFields.add(fieldName);
+                                }
                         }
 
-                        // test database
-                        this.database.writeJsonToFile(new Client("123", name, "surname", "addr", "comuna", "tel", new Account(1123123)), databaseFile);
+                        if (!emptyFields.isEmpty()) {
+                                String errorMessage = "Los siguientes campos están vacíos: " + String.join(", ", emptyFields);
+                                errorDialog(errorMessage, this.form);
+                                return; // Exit the method if there are empty fields
+                        }
+
+                        String run = this.form.getFieldValue("Rut");
+                        String name = this.form.getFieldValue("Nombre");
+                        String surname = this.form.getFieldValue("Apellido");
+                        String addr = this.form.getFieldValue("Domicilio");
+                        String comuna = this.form.getFieldValue("Comuna");
+                        String tel = this.form.getFieldValue("Telefono");
+                        String accountNum = this.form.getFieldValue("Numero Cuenta");
+                        Account account;
+
+                        if (!ValidationUtils.validateRun(run)) {
+                                errorDialog("Rut es invalido", this.form);
+                                return;
+                        } else if (!ValidationUtils.validateTel(tel)) {
+                                errorDialog("Telefono es invalido", this.form);
+                                return;
+                        } else if (!ValidationUtils.validateAccountNumber(accountNum)) {
+                                errorDialog("Numero de cuenta es invalido", this.form);
+                                return;
+                        }
+
+                        if (this.form.getFieldValue("Cuenta") == "Cuenta Ahorro") {
+                                account = new SavingAccount(Integer.parseInt(accountNum));
+                        } else {
+                                account = new CurrentAccount(Integer.parseInt(accountNum));
+                        }
+
+                        Client client = new Client(run, name, surname, addr, comuna, tel, account);
+                        this.database.writeJsonToFile(client, databaseFile);
                 });
 
+                // Search a client by run
                 this.clientDetails.searchClient(e -> {
                         List<Client> clients = this.database.readJsonFromFile(databaseFile);
                         this.clientDetails.loadClientData(clients.get(0));
                 });
+        }
+
+        public void errorDialog(String message, Component component) {
+                JOptionPane.showMessageDialog(component, message, "Error",  JOptionPane.ERROR_MESSAGE);
         }
         
 }
