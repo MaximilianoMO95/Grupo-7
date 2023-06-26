@@ -72,7 +72,17 @@ public class ClientController {
                 // Search a client by run
                 this.clientDetails.searchClient(e -> {
                         List<Client> clients = this.database.readJsonFromFile(databaseFile);
-                        this.clientDetails.loadClientData(clients.get(0));
+                        Client wantedClient = null;
+
+                        String targetRun = clientDetails.getSearchFieldValue();
+                        for (Client client : clients) {
+                                if (client.run.equals(targetRun)) {
+                                        wantedClient = client;
+                                        break;
+                                }
+                        }
+
+                        this.clientDetails.loadClientData(wantedClient);
                 });
         }
 
