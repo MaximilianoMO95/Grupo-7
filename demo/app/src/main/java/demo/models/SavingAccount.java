@@ -1,6 +1,6 @@
 package demo.models;
 
-class SavingAccount extends Account {
+public class SavingAccount extends Account {
         public SavingAccount(int accountNumber) {
                 super(accountNumber);
         }
