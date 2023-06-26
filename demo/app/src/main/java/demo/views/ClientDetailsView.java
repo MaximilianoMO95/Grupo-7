@@ -27,6 +27,10 @@ public class ClientDetailsView extends JPanel {
         public void searchClient(ActionListener actionListener) {
                 this.searchPanel.searchClient(actionListener);
         }
+
+        public String getSearchFieldValue() {
+                return searchPanel.getSearchFieldValue();
+        }
 }
 
 class SearchPanel extends JPanel {
@@ -43,6 +47,10 @@ class SearchPanel extends JPanel {
                 add(searchLabel);
                 add(searchField);
                 add(searchButton);
+        }
+
+        public String getSearchFieldValue() {
+                return searchField.getText();
         }
 
         public void searchClient(ActionListener actionListener) {
