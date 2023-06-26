@@ -67,6 +67,9 @@ public class ClientController {
 
                         Client client = new Client(run, name, surname, addr, comuna, tel, account);
                         this.database.writeJsonToFile(client, databaseFile);
+                        this.form.reset();
+                        
+                        JOptionPane.showMessageDialog(this.form, "Cliente Registrado", "Success", JOptionPane.INFORMATION_MESSAGE);
                 });
 
                 // Search a client by run

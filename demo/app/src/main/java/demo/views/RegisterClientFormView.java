@@ -7,8 +7,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-// TODO: clean up components after validation
-
 public class RegisterClientFormView extends JPanel {
         private GridBagConstraints gbc = new GridBagConstraints();
         private Map<String, JComponent> formData = new HashMap<>(7);
@@ -89,5 +87,15 @@ public class RegisterClientFormView extends JPanel {
 
         public void submitData(ActionListener actionListener) {
                 submitButton.addActionListener(actionListener); 
+        }
+
+        public void reset() {
+                for (JComponent component : formData.values()) {
+                        if (component instanceof JTextField) {
+                                ((JTextField) component).setText("");
+                        } else if (component instanceof JComboBox) {
+                                ((JComboBox<?>) component).setSelectedIndex(0);
+                        }
+                }
         }
 }

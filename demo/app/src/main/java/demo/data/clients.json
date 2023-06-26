@@ -1,0 +1,26 @@
+[
+  {
+    "run": "20.555.666-8",
+    "name": "asdasdasd",
+    "surname": "asdasdsadasd",
+    "address": "asdasdsad",
+    "comuna": "asdasdsad",
+    "tel": "123213213213",
+    "account": {
+      "accountNumber": 123123123,
+      "balance": 0
+    }
+  },
+  {
+    "run": "13.666.666-6",
+    "name": "asdsad",
+    "surname": "asdsa",
+    "address": "asdsad",
+    "comuna": "asdasd",
+    "tel": "23213213",
+    "account": {
+      "accountNumber": 123123123,
+      "balance": 0
+    }
+  }
+]
