@@ -74,11 +74,13 @@ public class ClientController {
                         List<Client> clients = this.database.readJsonFromFile(databaseFile);
                         Client wantedClient = null;
 
-                        String targetRun = clientDetails.getSearchFieldValue();
-                        for (Client client : clients) {
-                                if (client.run.equals(targetRun)) {
-                                        wantedClient = client;
-                                        break;
+                        if (clients != null) {
+                                String targetRun = clientDetails.getSearchFieldValue();
+                                for (Client client : clients) {
+                                        if (client.run.equals(targetRun)) {
+                                                wantedClient = client;
+                                                break;
+                                        }
                                 }
                         }
 
