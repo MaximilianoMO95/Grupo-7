@@ -22,10 +22,12 @@ public class MainFrame extends JFrame {
                 ClientDetailsView clientDetails = new ClientDetailsView();
                 HomeView home = new HomeView();
                 DepositView depositView = new DepositView();
+                GirarView girarView = new GirarView();
 
                 new ClientController(form, clientDetails);
                 new HomeController(home);
                 new DepositController(depositView);
+                new GirarController(girarView);
 
                 // Setup
                 setLayout(cardLayout);
