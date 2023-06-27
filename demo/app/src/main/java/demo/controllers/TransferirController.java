@@ -103,7 +103,8 @@ public class TransferirController {
         }
 
         private boolean isCurrentAccount(Client client) {
-                if (client.getAccount() instanceof CurrentAccount) {
+                Account account = client.getAccount();
+                if (account instanceof CurrentAccount) {
                         return true;
                 }
 

@@ -86,7 +86,7 @@ public class GirarView extends JPanel {
                 gbc.fill = GridBagConstraints.BOTH;
                 add(new JPanel(), gbc);
 
-                // Ocultar el campo de monto a girar inicialmente
+                // Ocultar el campo inicial
                 withdrawAmountLabel.setVisible(false);
                 withdrawAmountField.setVisible(false);
         }

@@ -49,7 +49,7 @@ public class DepositView extends JPanel {
                 gbc.gridx = 1;
                 add(searchButton, gbc);
 
-                // Client info
+                // info cliente
                 infoPanel = new JPanel(new GridLayout(2, 0, 10, 10));
                 gbc.gridx = 0;
                 gbc.gridy++;
@@ -86,7 +86,7 @@ public class DepositView extends JPanel {
                 gbc.fill = GridBagConstraints.BOTH;
                 add(new JPanel(), gbc);
 
-                // Ocultar el campo de monto a depositar inicialmente
+                // Ocultar el campo inicial
                 depositAmountLabel.setVisible(false);
                 depositAmountField.setVisible(false);
         }

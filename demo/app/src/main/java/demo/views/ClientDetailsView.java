@@ -82,7 +82,7 @@ class ClientDataPanel extends JPanel {
                 accountDataPanel.setPreferredSize(new Dimension(200, 200));
                 accountDataPanel.setLayout(new GridLayout(3, 0));
 
-                // Set up the grid bag constraints
+                
                 GridBagConstraints gbc = new GridBagConstraints();
                 gbc.gridx = 0;
                 gbc.gridy = 0;
@@ -132,7 +132,7 @@ class ClientDataPanel extends JPanel {
         }
 
         public void updateRow(String key, String value, JPanel panel) {
-                // https://stackoverflow.com/questions/370310/java-get-jpanel-components
+                
                 for (Component component : panel.getComponents()) {
                         if (component instanceof JLabel) {
                                 JLabel label = (JLabel) component;
