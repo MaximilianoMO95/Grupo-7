@@ -15,7 +15,7 @@ public class RegisterClientFormView extends JPanel {
         public RegisterClientFormView() {
                 super(new GridBagLayout());
 
-                // Title
+                // Titulo
                 JLabel titleLabel = new JLabel("Registrar Cliente");
                 Font titleFont = titleLabel.getFont();
                 Font newFont = titleFont.deriveFont(titleFont.getStyle() | Font.BOLD, 24f);
@@ -24,15 +24,15 @@ public class RegisterClientFormView extends JPanel {
                 titleLabel.setFont(newFont);
                 add(titleLabel, gbc);
 
-                // Fields margin and position
+                // Margenes
                 gbc.insets = new Insets(6, 6, 6, 6);
                 gbc.gridy++;
 
-                // Rut field
+                // Campo rut
                 gbc.anchor = GridBagConstraints.WEST;
                 addLabelInputText("Rut", 20);
 
-                // Account box
+                // Cuenta
                 String[] accountTypes = { "Cuenta Corriente", "Cuenta Ahorro" };
                 JComboBox<String> accountTypeComboBox = new JComboBox<>(accountTypes);
 
@@ -41,7 +41,7 @@ public class RegisterClientFormView extends JPanel {
                 add(accountTypeComboBox, gbc);
                 gbc.gridy++;
 
-                // Input fields (labelName:inputBoxCols)
+                // Entrada
                 String[] labelsInputText = {
                        "Nombre:40",  "Apellido:40", "Telefono:40",
                         "Domicilio:40", "Comuna:40", "Numero Cuenta:40"
@@ -53,7 +53,7 @@ public class RegisterClientFormView extends JPanel {
                         addLabelInputText(chunk[0], Integer.parseInt(chunk[1]));
                 });
 
-                // Submit button                
+                // Registrar boton               
                 gbc.gridy += 2;
                 gbc.anchor = GridBagConstraints.EAST;
                 submitButton = new JButton("Registrar");
