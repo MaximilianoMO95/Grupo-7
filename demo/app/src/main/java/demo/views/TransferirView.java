@@ -99,5 +99,11 @@ public class TransferirView extends JPanel {
         transferButton.addActionListener(actionListener);
     }
 
-   
+     public void displayErrorMessage(String errorMessage) {
+        JOptionPane.showMessageDialog(this, errorMessage, "Error", JOptionPane.ERROR_MESSAGE);
+    }
+
+     public void displayMessage(String message) {
+        JOptionPane.showMessageDialog(this, message);
+    }
 }
