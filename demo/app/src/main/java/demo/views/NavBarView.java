@@ -46,6 +46,9 @@ public class NavBarView extends JMenuBar {
         public void showClientData(ActionListener actionListener) {
                 c2.addActionListener(actionListener);
         }
+        public void showDeposit(ActionListener actionListener) {
+                a1.addActionListener(actionListener);
+        }
 }
 
 class CustomJMenu extends JMenu {
