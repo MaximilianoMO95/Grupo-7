@@ -36,12 +36,14 @@ public class MainFrame extends JFrame {
                 add(form, "form");
                 add(clientDetails, "clientDetails");
                 add(depositView, "deposit");
+                add(girarView, "girar");
 
                 // Actions
                 navBar.showClientData(e -> cardLayout.show(MainFrame.this.getContentPane(), "clientDetails"));
                 navBar.showClientForm(e -> cardLayout.show(MainFrame.this.getContentPane(), "form"));
                 navBar.showHome(e -> cardLayout.show(MainFrame.this.getContentPane(), "home"));
                 navBar.showDeposit(e -> cardLayout.show(MainFrame.this.getContentPane(), "deposit"));
+                navBar.showGirar(e -> cardLayout.show(MainFrame.this.getContentPane(), "girar"));
 
                 // Window
                 ImageIcon imageIcon = new ImageIcon("src/main/java/demo/assets/favicon.png");
