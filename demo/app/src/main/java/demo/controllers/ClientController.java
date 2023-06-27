@@ -62,9 +62,12 @@ public class ClientController {
                         } else if (!ValidationUtils.validateAccountNumber(accountNum)) {
                                 errorDialog("Numero de cuenta es invalido", this.form);
                                 return;
+                        } else if (accountExists(Integer.parseInt(accountNum))){
+                                errorDialog("Numero de cuenta ya esta en uso", this.form);
+                                return;
                         }
 
-                        if (this.form.getFieldValue("Cuenta") == "Cuenta Ahorro") {
+                        if (this.form.getFieldValue("Cuenta").equals("Cuenta Ahorro")) {
                                 account = new SavingAccount(Integer.parseInt(accountNum));
                         } else {
                                 account = new CurrentAccount(Integer.parseInt(accountNum));
@@ -105,5 +108,19 @@ public class ClientController {
                 }
 
                 return wantedClient;
+        }
+
+        private boolean accountExists(int accountNum) {
+                List<Client> clients = this.database.readJsonFromFile(databaseFile);
+
+                if (clients != null) {
+                        for (Client client : clients) {
+                                if (client.getAccount().getAccountNumber() == accountNum) {
+                                        return true;
+                                }
+                        }
+                }
+
+                return false;
         }
 }
