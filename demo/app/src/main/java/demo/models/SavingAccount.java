@@ -7,11 +7,11 @@ public class SavingAccount extends Account {
         }
 
         public void deposit(int amount) {
-                this.balance += amount;
+                balance += amount;
         }
 
         public void withdraw(int amount) {
-                this.balance -= amount;
+               balance -= amount;
         }
 }
 

@@ -2,7 +2,6 @@ package demo.controllers;
 
 import demo.models.Account;
 import demo.models.Client;
-import demo.models.CurrentAccount;
 import demo.models.Database;
 import demo.views.TransferirView;
 
@@ -42,9 +41,10 @@ public class TransferirController {
 
                         if (clients != null) {
                                 int idx = 0;
+                                int accountNumber;
 
                                 for (Client client : clients) {
-                                        int accountNumber = client.getAccount().getAccountNumber();
+                                        accountNumber = client.getAccount().getAccountNumber();
 
                                         if (accountNumber == accountNumber1) {
                                                 found1 = true;
@@ -74,37 +74,29 @@ public class TransferirController {
                                 return;
                         }
 
-                        if (client1 != null && client2 != null) {
-                                int amount = Integer.parseInt(transferirView.getTransferAmountField().getText());
+                        int amount = Integer.parseInt(transferirView.getTransferAmountField().getText());
 
-                                if (client1.getAccount().checkBalance() < amount) {
-                                        transferirView.displayErrorMessage("Fondos insuficientes");
-                                        return;
-                                } else if (amount <= 0) {
-                                        transferirView.displayErrorMessage("Cantidad invalida");
-                                        return;
-                                }
-
-                                // fix in the future
-                                if (client1.getAccount() instanceof CurrentAccount) {
-                                        ((CurrentAccount)client1.getAccount()).moneyTransfer(amount, 0);
-                                }
-                                client2.getAccount().deposit(amount);
-
-                                this.database.updateJsonItem(client1, idx1, databaseFile);
-                                this.database.updateJsonItem(client2, idx2, databaseFile);
-
-                                transferirView.displayMessage("Transferencia realizada con éxito. Nuevo saldo: " + client1.getAccount().checkBalance());
-                        } else {
-                                transferirView.displayErrorMessage("Desconocido");
+                        if (client1.getAccount().checkBalance() < amount) {
+                                transferirView.displayErrorMessage("Fondos insuficientes");
+                                return;
+                        } else if (amount <= 0) {
+                                transferirView.displayErrorMessage("Cantidad invalida");
+                                return;
                         }
 
+                        client1.getAccount().moneyTransfer(amount, accountNumber2);
+                        client2.getAccount().deposit(amount);
+
+                        this.database.updateJsonItem(client1, idx1, databaseFile);
+                        this.database.updateJsonItem(client2, idx2, databaseFile);
+
+                        transferirView.displayMessage("Transferencia realizada con éxito. Nuevo saldo: " + client1.getAccount().checkBalance());
                 });
         }
 
         private boolean isCurrentAccount(Client client) {
                 Account account = client.getAccount();
-                if (account instanceof CurrentAccount) {
+                if (account.getDescription().equals("Corriente")) {
                         return true;
                 }
 
