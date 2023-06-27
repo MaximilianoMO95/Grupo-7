@@ -29,6 +29,7 @@ public class MainFrame extends JFrame {
                 new HomeController(home);
                 new DepositController(depositView);
                 new GirarController(girarView);
+                new TransferirController(transferirView);
 
                 // Setup
                 setLayout(cardLayout);

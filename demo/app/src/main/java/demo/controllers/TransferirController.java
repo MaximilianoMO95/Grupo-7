@@ -18,11 +18,20 @@ public class TransferirController {
                 this.transferirView = transferirView;
 
                 this.transferirView.transfer(e -> {
+                        if (transferirView.getSourceAccountField().getText().isEmpty() ) {
+                                transferirView.displayErrorMessage("cuenta de origen vacia");
+                                return;
+                        } else if (transferirView.getDestinationAccountField().getText().isEmpty()) {
+                                transferirView.displayErrorMessage("cuenta de destino vacia");
+                                return;
+                        }
+
                         int accountNumber1 = Integer.parseInt(transferirView.getSourceAccountField().getText());
                         int accountNumber2 = Integer.parseInt(transferirView.getDestinationAccountField().getText());
 
-                        Client client1;
-                        Client client2;
+
+                        Client client1 = null;
+                        Client client2 = null;
 
                         int idx1 = 0;
                         int idx2 = 0;
@@ -37,11 +46,13 @@ public class TransferirController {
                                 for (Client client : clients) {
                                         int accountNumber = client.getAccount().getAccountNumber();
 
-                                        if (accountNumber.equals(accountNumber1)) {
+                                        if (accountNumber == accountNumber1) {
                                                 found1 = true;
+                                                client1 = client;
                                                 idx1 = idx;
-                                        } else if (accountNumber.equals(accountNumber2)) {
+                                        } else if (accountNumber == accountNumber2) {
                                                 found2 = true;
+                                                client2 = client;
                                                 idx2 = idx;
                                         }
 
@@ -51,42 +62,48 @@ public class TransferirController {
 
                         if (!found1) {
                                 transferirView.displayErrorMessage("Cuenta de origen no encontrada");
+                                return;
                         } else if (!found2) {
                                 transferirView.displayErrorMessage("Cuenta de destino no encontrada");
-                        } else if (isCurrentAccount(client1)) {
+                                return;
+                        } else if (!isCurrentAccount(client1)) {
                                 transferirView.displayErrorMessage("Cuenta de origen debe ser cuenta corriente");
-                        } else if (isCurrentAccount(client2)) {
+                                return;
+                        } else if (!isCurrentAccount(client2)) {
                                 transferirView.displayErrorMessage("Cuenta de destino debe ser cuenta corriente");
+                                return;
                         }
 
-                        transfer(client1, client2, idx1, idx2);
+                        if (client1 != null && client2 != null) {
+                                int amount = Integer.parseInt(transferirView.getTransferAmountField().getText());
+
+                                if (client1.getAccount().checkBalance() < amount) {
+                                        transferirView.displayErrorMessage("Fondos insuficientes");
+                                        return;
+                                } else if (amount <= 0) {
+                                        transferirView.displayErrorMessage("Cantidad invalida");
+                                        return;
+                                }
+
+                                // fix in the future
+                                if (client1.getAccount() instanceof CurrentAccount) {
+                                        ((CurrentAccount)client1.getAccount()).moneyTransfer(amount, 0);
+                                }
+                                client2.getAccount().deposit(amount);
+
+                                this.database.updateJsonItem(client1, idx1, databaseFile);
+                                this.database.updateJsonItem(client2, idx2, databaseFile);
+
+                                transferirView.displayMessage("Transferencia realizada con éxito. Nuevo saldo: " + client1.getAccount().checkBalance());
+                        } else {
+                                transferirView.displayErrorMessage("Desconocido");
+                        }
+
                 });
         }
 
-        private void transfer(Client client1, Client client2, int idx1, int idx2) {
-                int amount = Integer.parseInt(transferirView.getTransferAmountField().getText());
-
-                if (client1.getAccount().checkBalance() < amount) {
-                        transferirView.displayErrorMessage("Fondos insuficientes");
-                        return;
-                } else if (amount <= 0) {
-                        transferirView.displayErrorMessage("Cantidad invalida");
-                        return;
-                }
-
-                // fix in the future
-                ((CurrentAccount)client1.getAccount()).moneyTransfer(amount, 0);
-                client2.getAccount().deposit(amount);
-
-                this.database.updateJsonItem(client1, idx1, databaseFile);
-                this.database.updateJsonItem(client2, idx2, databaseFile);
-
-                transferirView.displayMessage("Transferencia realizada con éxito. Nuevo saldo: " + client1.getAccount().checkBalance());
-        }
-
-        private boolean isCurrentAccount(Client client, int accountNumber) {
-                Account account = client.getAccount();
-                if (account instanceof CurrentAccount) {
+        private boolean isCurrentAccount(Client client) {
+                if (client.getAccount() instanceof CurrentAccount) {
                         return true;
                 }
 
