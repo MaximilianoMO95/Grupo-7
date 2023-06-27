@@ -13,7 +13,7 @@ public class TransferirController {
         private Database<Client> database;
         private TransferirView transferirView;
 
-        public DepositController(TransferirView transferirView) {
+        public TransferirController(TransferirView transferirView) {
                 this.database = new Database<>(Client.class);
                 this.transferirView = transferirView;
 
