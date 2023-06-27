@@ -2,10 +2,11 @@ package demo.views;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 
 public class DepositView extends JPanel {
     
-   private JLabel titleLabel;
+    private JLabel titleLabel;
     private JLabel messageLabel;
     public JTextField runTextField;
     public JButton searchButton;
@@ -81,6 +82,13 @@ public class DepositView extends JPanel {
     public void showDepositAmountField() {
         depositAmountLabel.setVisible(true);
         depositAmountField.setVisible(true);
+
+        revalidate();
+        repaint();
+    }
+
+    public void searchClient(ActionListener actionListener) {
+        searchButton.addActionListener(actionListener);
     }
 
     public void displayErrorMessage(String errorMessage) {

@@ -1,11 +1,11 @@
 package demo.controllers;
 
+import demo.models.Account;
 import demo.models.Client;
+import demo.models.CurrentAccount;
 import demo.models.Database;
 import demo.views.DepositView;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.List;
 
 public class DepositController {
@@ -17,26 +17,25 @@ public class DepositController {
         this.database = new Database<>(Client.class);
         this.depositView = depositView;
 
-        this.depositView.getSearchButton().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                searchClient();
-            }
+        this.depositView.searchClient(e -> {
+                String rut = depositView.getRunTextField().getText();
+                List<Client> clients = database.readJsonFromFile(databaseFile);
+                boolean found = false;
+
+                if (clients != null) {
+                        for (Client client : clients) {
+                            if (client.run.equals(rut)) {
+                                found = true;
+                                depositView.showDepositAmountField();
+                                break;
+                            }
+                        }
+                }
+
+                if (!found) {
+                        depositView.displayErrorMessage("RUT no encontrado");
+                }
         });
-    }
 
-    private void searchClient() {
-        String rut = depositView.getRunTextField().getText();
-        List<Client> clients = database.readJsonFromFile(databaseFile);
-
-        for (Client client : clients) {
-            if (client.run.equals(rut)) {
-                depositView.showDepositAmountField();
-                depositView.displayMessage("RUT encontrado");
-                return;
-            }
-        }
-
-        depositView.displayErrorMessage("RUT no encontrado");
     }
 }

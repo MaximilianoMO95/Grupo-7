@@ -25,6 +25,7 @@ public class MainFrame extends JFrame {
 
                 new ClientController(form, clientDetails);
                 new HomeController(home);
+                new DepositController(depositView);
 
                 // Setup
                 setLayout(cardLayout);
@@ -35,6 +36,7 @@ public class MainFrame extends JFrame {
                 add(form, "form");
                 add(clientDetails, "clientDetails");
                 add(depositView, "deposit");
+
                 // Actions
                 navBar.showClientData(e -> cardLayout.show(MainFrame.this.getContentPane(), "clientDetails"));
                 navBar.showClientForm(e -> cardLayout.show(MainFrame.this.getContentPane(), "form"));
