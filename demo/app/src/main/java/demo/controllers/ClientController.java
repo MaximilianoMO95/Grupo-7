@@ -23,7 +23,7 @@ public class ClientController {
                 this.form = registerClientFormView;
                 this.clientDetails = clientDetailsView;
 
-                // Register new client
+                
                 this.form.submitData(e -> {
                         String[] fieldNames = {"Nombre", "Apellido", "Telefono", "Domicilio", "Comuna", "Numero Cuenta"};
                         List<String> emptyFields = new ArrayList<>();
