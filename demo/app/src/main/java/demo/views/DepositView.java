@@ -97,7 +97,7 @@ public class DepositView extends JPanel {
 
         public void load(Client client) {
                 Account account = client.getAccount();
-                JLabel accountType = new JLabel("Cuenta De " + account.getDescription());
+                JLabel accountType = new JLabel("Cuenta " + account.getDescription());
                 JLabel balance = new JLabel("Saldo: " + Integer.toString(account.checkBalance()));
                 accountType.setFont(accountType.getFont().deriveFont(Font.BOLD));
                 balance.setFont(balance.getFont().deriveFont(Font.BOLD));
