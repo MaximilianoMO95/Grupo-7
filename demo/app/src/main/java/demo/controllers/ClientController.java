@@ -38,7 +38,7 @@ public class ClientController {
                         if (!emptyFields.isEmpty()) {
                                 String errorMessage = "Los siguientes campos están vacíos: " + String.join(", ", emptyFields);
                                 errorDialog(errorMessage, this.form);
-                                return; // Exit the method if there are empty fields
+                                return; 
                         }
 
                         String run = this.form.getFieldValue("Rut");
@@ -77,7 +77,7 @@ public class ClientController {
                         JOptionPane.showMessageDialog(this.form, "Cliente Registrado", "Success", JOptionPane.INFORMATION_MESSAGE);
                 });
 
-                // Search a client by run
+              
                 this.clientDetails.searchClient(e -> {
                         String targetRun = clientDetails.getSearchFieldValue();
                         Client wantedClient = searchByRun(targetRun);
