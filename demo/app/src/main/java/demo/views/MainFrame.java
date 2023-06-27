@@ -21,6 +21,7 @@ public class MainFrame extends JFrame {
                 RegisterClientFormView form = new RegisterClientFormView();
                 ClientDetailsView clientDetails = new ClientDetailsView();
                 HomeView home = new HomeView();
+                DepositView depositView = new DepositView();
 
                 new ClientController(form, clientDetails);
                 new HomeController(home);
@@ -33,11 +34,12 @@ public class MainFrame extends JFrame {
                 add(home, "home");
                 add(form, "form");
                 add(clientDetails, "clientDetails");
-                
+                add(depositView, "deposit");
                 // Actions
                 navBar.showClientData(e -> cardLayout.show(MainFrame.this.getContentPane(), "clientDetails"));
                 navBar.showClientForm(e -> cardLayout.show(MainFrame.this.getContentPane(), "form"));
                 navBar.showHome(e -> cardLayout.show(MainFrame.this.getContentPane(), "home"));
+                navBar.showDeposit(e -> cardLayout.show(MainFrame.this.getContentPane(), "deposit"));
 
                 // Window
                 ImageIcon imageIcon = new ImageIcon("src/main/java/demo/assets/favicon.png");
