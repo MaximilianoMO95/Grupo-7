@@ -15,7 +15,7 @@ public class ValidationUtils {
         }
 
         public static final boolean validateAccountNumber(String number) {
-                String regex = "^[0-9]{9}$";
+                String regex = "^[1-9][0-9]{8}$";
 
                 return number.matches(regex);
         }

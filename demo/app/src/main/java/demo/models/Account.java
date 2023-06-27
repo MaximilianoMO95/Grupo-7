@@ -21,5 +21,17 @@ public class Account {
         public String getDescription() {
                 return description;
         }
+
+        public void withdraw(int amount) {
+                balance -= amount;
+        }
+
+        public void deposit(int amount) {
+                balance += amount;
+        }
+
+        public void moneyTransfer(int amount, int destNumber) {
+                balance -= amount;
+        }
 }
 

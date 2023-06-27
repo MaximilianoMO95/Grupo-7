@@ -23,7 +23,7 @@ public class ClientController {
                 this.form = registerClientFormView;
                 this.clientDetails = clientDetailsView;
 
-                // Register new client
+                
                 this.form.submitData(e -> {
                         String[] fieldNames = {"Nombre", "Apellido", "Telefono", "Domicilio", "Comuna", "Numero Cuenta"};
                         List<String> emptyFields = new ArrayList<>();
@@ -38,7 +38,7 @@ public class ClientController {
                         if (!emptyFields.isEmpty()) {
                                 String errorMessage = "Los siguientes campos están vacíos: " + String.join(", ", emptyFields);
                                 errorDialog(errorMessage, this.form);
-                                return; // Exit the method if there are empty fields
+                                return; 
                         }
 
                         String run = this.form.getFieldValue("Rut");
@@ -62,9 +62,12 @@ public class ClientController {
                         } else if (!ValidationUtils.validateAccountNumber(accountNum)) {
                                 errorDialog("Numero de cuenta es invalido", this.form);
                                 return;
+                        } else if (accountExists(Integer.parseInt(accountNum))){
+                                errorDialog("Numero de cuenta ya esta en uso", this.form);
+                                return;
                         }
 
-                        if (this.form.getFieldValue("Cuenta") == "Cuenta Ahorro") {
+                        if (this.form.getFieldValue("Cuenta").equals("Cuenta Ahorro")) {
                                 account = new SavingAccount(Integer.parseInt(accountNum));
                         } else {
                                 account = new CurrentAccount(Integer.parseInt(accountNum));
@@ -77,7 +80,7 @@ public class ClientController {
                         JOptionPane.showMessageDialog(this.form, "Cliente Registrado", "Success", JOptionPane.INFORMATION_MESSAGE);
                 });
 
-                // Search a client by run
+              
                 this.clientDetails.searchClient(e -> {
                         String targetRun = clientDetails.getSearchFieldValue();
                         Client wantedClient = searchByRun(targetRun);
@@ -105,5 +108,19 @@ public class ClientController {
                 }
 
                 return wantedClient;
+        }
+
+        private boolean accountExists(int accountNum) {
+                List<Client> clients = this.database.readJsonFromFile(databaseFile);
+
+                if (clients != null) {
+                        for (Client client : clients) {
+                                if (client.getAccount().getAccountNumber() == accountNum) {
+                                        return true;
+                                }
+                        }
+                }
+
+                return false;
         }
 }
