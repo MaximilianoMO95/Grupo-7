@@ -29,7 +29,7 @@ public class NavBarView extends JMenuBar {
 
                 setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
 
-                // bua faltaba esto :)
+                
                 add(home);
                 add(client);
                 add(accounts);
