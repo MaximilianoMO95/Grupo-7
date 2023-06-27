@@ -23,6 +23,7 @@ public class MainFrame extends JFrame {
                 HomeView home = new HomeView();
                 DepositView depositView = new DepositView();
                 GirarView girarView = new GirarView();
+                TransferirView transferirView = new TransferirView();
 
                 new ClientController(form, clientDetails);
                 new HomeController(home);
@@ -39,6 +40,7 @@ public class MainFrame extends JFrame {
                 add(clientDetails, "clientDetails");
                 add(depositView, "deposit");
                 add(girarView, "girar");
+                add(transferirView, "transferir");
 
                 // Actions
                 navBar.showClientData(e -> cardLayout.show(MainFrame.this.getContentPane(), "clientDetails"));
@@ -46,6 +48,7 @@ public class MainFrame extends JFrame {
                 navBar.showHome(e -> cardLayout.show(MainFrame.this.getContentPane(), "home"));
                 navBar.showDeposit(e -> cardLayout.show(MainFrame.this.getContentPane(), "deposit"));
                 navBar.showGirar(e -> cardLayout.show(MainFrame.this.getContentPane(), "girar"));
+                navBar.showTransferir(e -> cardLayout.show(MainFrame.this.getContentPane(), "transferir"));
 
                 // Window
                 ImageIcon imageIcon = new ImageIcon("src/main/java/demo/assets/favicon.png");
