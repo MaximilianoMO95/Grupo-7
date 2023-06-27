@@ -22,6 +22,10 @@ public class Account {
                 return description;
         }
 
+        public void withdraw(int amount) {
+                balance -= amount;
+        }
+
         public void deposit(int amount) {
                 balance += amount;
         }
