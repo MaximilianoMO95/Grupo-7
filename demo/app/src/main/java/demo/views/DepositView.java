@@ -11,6 +11,7 @@ import java.awt.event.ActionListener;
 public class DepositView extends JPanel {
     
     private JLabel titleLabel;
+    private JLabel statusLabel;
     private JLabel messageLabel;
     private JTextField runTextField;
     private JButton searchButton;
@@ -82,6 +83,14 @@ public class DepositView extends JPanel {
         // Ocultar el campo de monto a depositar inicialmente
         depositAmountLabel.setVisible(false);
         depositAmountField.setVisible(false);
+
+        // Status
+        gbc.gridy++;
+        statusLabel = new JLabel();
+        statusLabel.setFont(statusLabel.getFont().deriveFont(Font.BOLD));
+        statusLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        add(statusLabel, gbc);
+        statusLabel.setVisible(false);
     }
 
     public JTextField getRunTextField() {
@@ -90,7 +99,7 @@ public class DepositView extends JPanel {
 
     public void load(Client client) {
         Account account = client.getAccount();
-        JLabel accountType = new JLabel("Cuenta De " + account.getDescription());
+        JLabel accountType = new JLabel("Cuenta " + account.getDescription());
         JLabel balance = new JLabel("Saldo: " + Integer.toString(account.checkBalance()));
         accountType.setFont(accountType.getFont().deriveFont(Font.BOLD));
         balance.setFont(balance.getFont().deriveFont(Font.BOLD));
