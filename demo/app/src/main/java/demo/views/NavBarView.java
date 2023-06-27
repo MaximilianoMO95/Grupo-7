@@ -52,6 +52,9 @@ public class NavBarView extends JMenuBar {
         public void showGirar(ActionListener actionListener) {
                 a2.addActionListener(actionListener);
         }
+        public void showTransferir(ActionListener actionListener) {
+                a3.addActionListener(actionListener);
+        }
 }
 
 class CustomJMenu extends JMenu {
