@@ -1,6 +1,5 @@
 package demo.views;
 
-
 import demo.models.Account;
 import demo.models.Client;
 
@@ -9,132 +8,133 @@ import javax.swing.*;
 import java.awt.event.ActionListener;
 
 public class DepositView extends JPanel {
-    
-    private JLabel titleLabel;
-    private JLabel messageLabel;
-    private JTextField runTextField;
-    private JButton searchButton;
-    private JPanel infoPanel;
-    private JLabel depositAmountLabel;
-    private JTextField depositAmountField;
-    private JButton depositButton;
 
-    public DepositView() {
-        setLayout(new GridBagLayout());
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(10, 10, 10, 10);
+        private JLabel titleLabel;
+        private JLabel messageLabel;
+        private JTextField runTextField;
+        private JButton searchButton;
+        private JPanel infoPanel;
+        private JLabel depositAmountLabel;
+        private JTextField depositAmountField;
+        private JButton depositButton;
 
-        // "Buscar cliente"
-        titleLabel = new JLabel("Buscar cliente");
-        titleLabel.setFont(titleLabel.getFont().deriveFont(Font.BOLD, 18f));
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        gbc.anchor = GridBagConstraints.CENTER;
-        gbc.gridwidth = 2;
-        add(titleLabel, gbc);
+        public DepositView() {
+                setLayout(new GridBagLayout());
+                GridBagConstraints gbc = new GridBagConstraints();
+                gbc.insets = new Insets(10, 10, 10, 10);
 
-        // Ingrese el rut del cliente
-        messageLabel = new JLabel("Ingrese el rut del cliente");
-        gbc.gridy = 1;
-        gbc.gridwidth = 2;
-        add(messageLabel, gbc);
+                // "Buscar cliente"
+                titleLabel = new JLabel("Buscar cliente");
+                titleLabel.setFont(titleLabel.getFont().deriveFont(Font.BOLD, 18f));
+                gbc.gridx = 0;
+                gbc.gridy = 0;
+                gbc.anchor = GridBagConstraints.CENTER;
+                gbc.gridwidth = 2;
+                add(titleLabel, gbc);
 
-        // Rut
-        runTextField = new JTextField(20);
-        gbc.gridy = 2;
-        gbc.gridwidth = 1;
-        add(runTextField, gbc);
+                // Ingrese el rut del cliente
+                messageLabel = new JLabel("Ingrese el rut del cliente");
+                gbc.gridy = 1;
+                gbc.gridwidth = 2;
+                add(messageLabel, gbc);
 
-        // Buscar
-        searchButton = new JButton("Buscar");
-        gbc.gridx = 1;
-        add(searchButton, gbc);
+                // Rut
+                runTextField = new JTextField(20);
+                gbc.gridy = 2;
+                gbc.gridwidth = 1;
+                add(runTextField, gbc);
 
-        // Client info
-        infoPanel = new JPanel(new GridLayout(2, 0, 10, 10));
-        gbc.gridx = 0;
-        gbc.gridy++;
-        gbc.anchor = GridBagConstraints.WEST;
-        add(infoPanel, gbc);
-        infoPanel.setVisible(false);
+                // Buscar
+                searchButton = new JButton("Buscar");
+                gbc.gridx = 1;
+                add(searchButton, gbc);
 
-        // Monto a depositar
-        depositAmountLabel = new JLabel("Monto a depositar");
-        gbc.gridx = 0;
-        gbc.gridy++;
-        gbc.gridwidth = 2;
-        gbc.anchor = GridBagConstraints.CENTER;
-        add(depositAmountLabel, gbc);
+                // Client info
+                infoPanel = new JPanel(new GridLayout(2, 0, 10, 10));
+                gbc.gridx = 0;
+                gbc.gridy++;
+                gbc.anchor = GridBagConstraints.WEST;
+                add(infoPanel, gbc);
+                infoPanel.setVisible(false);
 
-        depositAmountField = new JTextField(10);
-        gbc.gridy++;
-        gbc.gridwidth = 2;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        add(depositAmountField, gbc);
-        
-        // boton depositar
-        depositButton = new JButton("Depositar");
-        gbc.gridx = 1;
-        gbc.gridy++;
-        add(depositButton, gbc);
-        depositButton.setVisible(false);
+                // Monto a depositar
+                depositAmountLabel = new JLabel("Monto a depositar");
+                gbc.gridx = 0;
+                gbc.gridy++;
+                gbc.gridwidth = 2;
+                gbc.anchor = GridBagConstraints.CENTER;
+                add(depositAmountLabel, gbc);
 
-        // Espacio
-        gbc.gridx = 0;
-        gbc.gridy++;
-        gbc.gridwidth = 2;
-        gbc.weighty = 0.2;
-        gbc.fill = GridBagConstraints.BOTH;
-        add(new JPanel(), gbc);
+                depositAmountField = new JTextField(10);
+                gbc.gridy++;
+                gbc.gridwidth = 2;
+                gbc.fill = GridBagConstraints.HORIZONTAL;
+                add(depositAmountField, gbc);
 
-        // Ocultar el campo de monto a depositar inicialmente
-        depositAmountLabel.setVisible(false);
-        depositAmountField.setVisible(false);
-    }
+                // boton depositar
+                depositButton = new JButton("Depositar");
+                gbc.gridx = 1;
+                gbc.gridy++;
+                add(depositButton, gbc);
+                depositButton.setVisible(false);
 
-    public JTextField getRunTextField() {
-        return runTextField;
-    }
+                // Espacio
+                gbc.gridx = 0;
+                gbc.gridy++;
+                gbc.gridwidth = 2;
+                gbc.weighty = 0.2;
+                gbc.fill = GridBagConstraints.BOTH;
+                add(new JPanel(), gbc);
 
-    public void load(Client client) {
-        Account account = client.getAccount();
-        JLabel accountType = new JLabel("Cuenta De " + account.getDescription());
-        JLabel balance = new JLabel("Saldo: " + Integer.toString(account.checkBalance()));
-        accountType.setFont(accountType.getFont().deriveFont(Font.BOLD));
-        balance.setFont(balance.getFont().deriveFont(Font.BOLD));
+                // Ocultar el campo de monto a depositar inicialmente
+                depositAmountLabel.setVisible(false);
+                depositAmountField.setVisible(false);
+        }
 
-        infoPanel.add(accountType); 
-        infoPanel.add(balance);
-        infoPanel.setVisible(true);
-        depositButton.setVisible(true);
-        showDepositAmountField();
+        public JTextField getRunTextField() {
+                return runTextField;
+        }
 
-        revalidate();
-        repaint();
-    }
+        public void load(Client client) {
+                Account account = client.getAccount();
+                JLabel accountType = new JLabel("Cuenta De " + account.getDescription());
+                JLabel balance = new JLabel("Saldo: " + Integer.toString(account.checkBalance()));
+                accountType.setFont(accountType.getFont().deriveFont(Font.BOLD));
+                balance.setFont(balance.getFont().deriveFont(Font.BOLD));
 
-    private void showDepositAmountField() {
-        depositAmountLabel.setVisible(true);
-        depositAmountField.setVisible(true);
-    }
+                infoPanel.removeAll();
+                infoPanel.add(accountType);
+                infoPanel.add(balance);
+                infoPanel.setVisible(true);
+                depositButton.setVisible(true);
+                showDepositAmountField();
 
-    public void searchClient(ActionListener actionListener) {
-        searchButton.addActionListener(actionListener);
-    }
+                revalidate();
+                repaint();
+        }
 
-    public void displayErrorMessage(String errorMessage) {
-        JOptionPane.showMessageDialog(this, errorMessage, "Error", JOptionPane.ERROR_MESSAGE);
-    }
+        private void showDepositAmountField() {
+                depositAmountLabel.setVisible(true);
+                depositAmountField.setVisible(true);
+        }
 
-    public void displayMessage(String message) {
-        JOptionPane.showMessageDialog(this, message);
-    }
-      public JButton getDepositButton() {
-       return depositButton;
-}
+        public void searchClient(ActionListener actionListener) {
+                searchButton.addActionListener(actionListener);
+        }
+
+        public void depositBtn(ActionListener actionListener) {
+                depositButton.addActionListener(actionListener);
+        }
+
+        public void displayErrorMessage(String errorMessage) {
+                JOptionPane.showMessageDialog(this, errorMessage, "Error", JOptionPane.ERROR_MESSAGE);
+        }
+
+        public void displayMessage(String message) {
+                JOptionPane.showMessageDialog(this, message);
+        }
 
         public JTextField getDepositAmountField() {
-        return depositAmountField;
+                return depositAmountField;
+        }
 }
-}
-     

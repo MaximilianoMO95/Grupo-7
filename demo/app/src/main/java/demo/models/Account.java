@@ -21,7 +21,9 @@ public class Account {
         public String getDescription() {
                 return description;
         }
-        public void deposit(double amount) {
-        balance += amount;
+
+        public void deposit(int amount) {
+                balance += amount;
+        }
 }
 
