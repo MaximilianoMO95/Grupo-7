@@ -14,7 +14,7 @@ public class MainFrame extends JFrame {
         public MainFrame() {
                 super("West Bank");
 
-                // Initialization
+                
                 cardLayout = new CardLayout();
 
                 NavBarView navBar = new NavBarView();
@@ -30,11 +30,11 @@ public class MainFrame extends JFrame {
                 new DepositController(depositView);
                 new GirarController(girarView);
 
-                // Setup
+               
                 setLayout(cardLayout);
                 setJMenuBar(navBar);
 
-                // Panels
+                
                 add(home, "home");
                 add(form, "form");
                 add(clientDetails, "clientDetails");
@@ -42,7 +42,7 @@ public class MainFrame extends JFrame {
                 add(girarView, "girar");
                 add(transferirView, "transferir");
 
-                // Actions
+                
                 navBar.showClientData(e -> cardLayout.show(MainFrame.this.getContentPane(), "clientDetails"));
                 navBar.showClientForm(e -> cardLayout.show(MainFrame.this.getContentPane(), "form"));
                 navBar.showHome(e -> cardLayout.show(MainFrame.this.getContentPane(), "home"));
@@ -50,7 +50,7 @@ public class MainFrame extends JFrame {
                 navBar.showGirar(e -> cardLayout.show(MainFrame.this.getContentPane(), "girar"));
                 navBar.showTransferir(e -> cardLayout.show(MainFrame.this.getContentPane(), "transferir"));
 
-                // Window
+                
                 ImageIcon imageIcon = new ImageIcon("src/main/java/demo/assets/favicon.png");
                 setIconImage(imageIcon.getImage());
 
