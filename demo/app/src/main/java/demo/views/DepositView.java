@@ -11,13 +11,13 @@ import java.awt.event.ActionListener;
 public class DepositView extends JPanel {
     
     private JLabel titleLabel;
-    private JLabel statusLabel;
     private JLabel messageLabel;
     private JTextField runTextField;
     private JButton searchButton;
     private JPanel infoPanel;
     private JLabel depositAmountLabel;
     private JTextField depositAmountField;
+    private JButton depositButton;
 
     public DepositView() {
         setLayout(new GridBagLayout());
@@ -71,6 +71,13 @@ public class DepositView extends JPanel {
         gbc.gridwidth = 2;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         add(depositAmountField, gbc);
+        
+        // boton depositar
+        depositButton = new JButton("Depositar");
+        gbc.gridx = 1;
+        gbc.gridy++;
+        add(depositButton, gbc);
+        depositButton.setVisible(false);
 
         // Espacio
         gbc.gridx = 0;
@@ -83,14 +90,6 @@ public class DepositView extends JPanel {
         // Ocultar el campo de monto a depositar inicialmente
         depositAmountLabel.setVisible(false);
         depositAmountField.setVisible(false);
-
-        // Status
-        gbc.gridy++;
-        statusLabel = new JLabel();
-        statusLabel.setFont(statusLabel.getFont().deriveFont(Font.BOLD));
-        statusLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        add(statusLabel, gbc);
-        statusLabel.setVisible(false);
     }
 
     public JTextField getRunTextField() {
@@ -99,7 +98,7 @@ public class DepositView extends JPanel {
 
     public void load(Client client) {
         Account account = client.getAccount();
-        JLabel accountType = new JLabel("Cuenta " + account.getDescription());
+        JLabel accountType = new JLabel("Cuenta De " + account.getDescription());
         JLabel balance = new JLabel("Saldo: " + Integer.toString(account.checkBalance()));
         accountType.setFont(accountType.getFont().deriveFont(Font.BOLD));
         balance.setFont(balance.getFont().deriveFont(Font.BOLD));
@@ -107,7 +106,7 @@ public class DepositView extends JPanel {
         infoPanel.add(accountType); 
         infoPanel.add(balance);
         infoPanel.setVisible(true);
-
+        depositButton.setVisible(true);
         showDepositAmountField();
 
         revalidate();
@@ -130,5 +129,12 @@ public class DepositView extends JPanel {
     public void displayMessage(String message) {
         JOptionPane.showMessageDialog(this, message);
     }
+      public JButton getDepositButton() {
+       return depositButton;
+}
+
+        public JTextField getDepositAmountField() {
+        return depositAmountField;
+}
 }
      
