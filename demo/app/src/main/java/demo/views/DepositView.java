@@ -1,15 +1,20 @@
 package demo.views;
 
-import javax.swing.*;
+
+import demo.models.Account;
+import demo.models.Client;
+
 import java.awt.*;
+import javax.swing.*;
 import java.awt.event.ActionListener;
 
 public class DepositView extends JPanel {
     
     private JLabel titleLabel;
     private JLabel messageLabel;
-    public JTextField runTextField;
-    public JButton searchButton;
+    private JTextField runTextField;
+    private JButton searchButton;
+    private JPanel infoPanel;
     private JLabel depositAmountLabel;
     private JTextField depositAmountField;
 
@@ -44,23 +49,31 @@ public class DepositView extends JPanel {
         gbc.gridx = 1;
         add(searchButton, gbc);
 
+        // Client info
+        infoPanel = new JPanel(new GridLayout(2, 0, 10, 10));
+        gbc.gridx = 0;
+        gbc.gridy++;
+        gbc.anchor = GridBagConstraints.WEST;
+        add(infoPanel, gbc);
+        infoPanel.setVisible(false);
+
         // Monto a depositar
         depositAmountLabel = new JLabel("Monto a depositar");
         gbc.gridx = 0;
-        gbc.gridy = 3;
+        gbc.gridy++;
         gbc.gridwidth = 2;
         gbc.anchor = GridBagConstraints.CENTER;
         add(depositAmountLabel, gbc);
 
         depositAmountField = new JTextField(10);
-        gbc.gridy = 4;
+        gbc.gridy++;
         gbc.gridwidth = 2;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         add(depositAmountField, gbc);
 
         // Espacio
         gbc.gridx = 0;
-        gbc.gridy = 5;
+        gbc.gridy++;
         gbc.gridwidth = 2;
         gbc.weighty = 0.2;
         gbc.fill = GridBagConstraints.BOTH;
@@ -71,20 +84,30 @@ public class DepositView extends JPanel {
         depositAmountField.setVisible(false);
     }
 
-    public JButton getSearchButton() {
-        return searchButton;
-    }
-
     public JTextField getRunTextField() {
         return runTextField;
     }
 
-    public void showDepositAmountField() {
-        depositAmountLabel.setVisible(true);
-        depositAmountField.setVisible(true);
+    public void load(Client client) {
+        Account account = client.getAccount();
+        JLabel accountType = new JLabel("Cuenta De " + account.getDescription());
+        JLabel balance = new JLabel("Saldo: " + Integer.toString(account.checkBalance()));
+        accountType.setFont(accountType.getFont().deriveFont(Font.BOLD));
+        balance.setFont(balance.getFont().deriveFont(Font.BOLD));
+
+        infoPanel.add(accountType); 
+        infoPanel.add(balance);
+        infoPanel.setVisible(true);
+
+        showDepositAmountField();
 
         revalidate();
         repaint();
+    }
+
+    private void showDepositAmountField() {
+        depositAmountLabel.setVisible(true);
+        depositAmountField.setVisible(true);
     }
 
     public void searchClient(ActionListener actionListener) {

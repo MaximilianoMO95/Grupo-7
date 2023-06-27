@@ -26,7 +26,7 @@ public class DepositController {
                         for (Client client : clients) {
                             if (client.run.equals(rut)) {
                                 found = true;
-                                depositView.showDepositAmountField();
+                                depositView.load(client);
                                 break;
                             }
                         }
