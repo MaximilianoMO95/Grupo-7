@@ -10,12 +10,16 @@ public class Account {
                 this.balance = 0;
         }
 
-        protected int getAccountNumber() {
+        public int getAccountNumber() {
                 return accountNumber;
         }
 
-        protected int checkBalance() {
+        public int checkBalance() {
                 return balance;
+        }
+
+        public String getDescription() {
+                return description;
         }
 }
 

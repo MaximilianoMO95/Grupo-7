@@ -1,5 +1,6 @@
 package demo.views;
 
+import demo.models.Account;
 import demo.models.Client;
 
 import javax.swing.*;
@@ -104,21 +105,21 @@ class ClientDataPanel extends JPanel {
                         personalDataPanel.setVisible(true);
                         accountDataPanel.setVisible(true);
 
-                        updateRow("Nombre: ", client.name, personalDataPanel); 
+                        updateRow("Nombre: ", client.name, personalDataPanel);
                         updateRow("Apellido: ", client.surname, personalDataPanel);
-                        updateRow("Domicilio: ", client.address, personalDataPanel); 
-                        updateRow("Comuna: ", client.comuna, personalDataPanel); 
-                        updateRow("Telefono: ", client.address, personalDataPanel); 
+                        updateRow("Domicilio: ", client.address, personalDataPanel);
+                        updateRow("Comuna: ", client.comuna, personalDataPanel);
+                        updateRow("Telefono: ", client.address, personalDataPanel);
 
-                        updateRow("Numero: ", "123", accountDataPanel);
-                        updateRow("Tipo: ", "123", accountDataPanel);
-                        updateRow("Saldo: ", "123", accountDataPanel);
+                        Account account = client.getAccount();
+                        updateRow("Numero: ", Integer.toString(account.getAccountNumber()), accountDataPanel);
+                        updateRow("Tipo: ", account.getDescription(), accountDataPanel);
+                        updateRow("Saldo: ", Integer.toString(account.checkBalance()), accountDataPanel);
                 } else {
                         notFoundLabel.setVisible(true);
                         personalDataPanel.setVisible(false);
                         accountDataPanel.setVisible(false);
                 }
-
 
                 revalidate();
                 repaint();
@@ -129,7 +130,7 @@ class ClientDataPanel extends JPanel {
                 label.setHorizontalAlignment(SwingConstants.CENTER);
                 panel.add(label);
         }
-        
+
         public void updateRow(String key, String value, JPanel panel) {
                 // https://stackoverflow.com/questions/370310/java-get-jpanel-components
                 for (Component component : panel.getComponents()) {
