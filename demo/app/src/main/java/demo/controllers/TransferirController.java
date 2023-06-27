@@ -74,7 +74,7 @@ public class TransferirController {
                         return;
                 }
 
-                // fix in the future
+               
                 ((CurrentAccount)client1.getAccount()).moneyTransfer(amount, 0);
                 client2.getAccount().deposit(amount);
 
