@@ -55,4 +55,23 @@ public class Database<T> {
 
                 return items;
         }
+
+        public void updateItem(T newItem, int index, String filePath) {
+                List<T> items = readJsonFromFile(filePath);
+        
+                if (index >= 0 && index < items.size()) {
+                        items.set(index, newItem);
+                        writeJsonToFile(items, filePath);
+                }
+        }
+
+        public void updateItem(T oldItem, T newItem, String filePath) {
+                List<T> items = readJsonFromFile(filePath);
+                int index = items.indexOf(oldItem);
+        
+                if (index >= 0 && index < items.size()) {
+                        items.set(index, newItem);
+                        writeJsonToFile(items, filePath);
+                }
+        }
 }
