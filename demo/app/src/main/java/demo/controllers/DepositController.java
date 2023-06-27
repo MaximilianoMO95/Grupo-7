@@ -1,8 +1,6 @@
 package demo.controllers;
 
-import demo.models.Account;
 import demo.models.Client;
-import demo.models.CurrentAccount;
 import demo.models.Database;
 import demo.views.DepositView;
 
