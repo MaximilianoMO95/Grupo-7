@@ -27,10 +27,10 @@ dependencies {
     implementation("com.formdev:flatlaf:3.1.1")
 
     // MYSQL conector
-    implementation 'mysql:mysql-connector-java:8.0.27'
+    implementation("mysql:mysql-connector-java:8.0.27")
 
     // DotEnv - store environments variables
-    implementation 'io.github.cdimascio:dotenv-java:3.0.0'
+    implementation("io.github.cdimascio:dotenv-java:3.0.0")
 }
 
 // Apply a specific Java toolchain to ease working on different environments.
