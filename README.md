@@ -4,3 +4,6 @@ This repository contains a school project developed using the MVC
 application for West Bank, allowing users to perform various banking
 operations such as deposits, withdrawals, transfers, balance inquiries,
 and managing client data.
+
+## Resources
+- [Mysql Cheatsheet](https://phoenixnap.com/kb/mysql-commands-cheat-sheet)
