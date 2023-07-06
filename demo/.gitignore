@@ -6,6 +6,9 @@
 app/.settings
 app/build
 
+*.env
+!example.env
+
 # Ignore Gradle GUI config
 gradle-app.setting
 
