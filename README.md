@@ -7,3 +7,5 @@ and managing client data.
 
 ## Resources
 - [Mysql Cheatsheet](https://phoenixnap.com/kb/mysql-commands-cheat-sheet)
+- [Mysql Cheatsheet](https://cheatography.com/davechild/cheat-sheets/mysql)
+- [Mysql Cheatsheet](https://devhints.io/mysql)
