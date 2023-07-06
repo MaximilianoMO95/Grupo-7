@@ -9,3 +9,6 @@ and managing client data.
 - [Mysql Cheatsheet](https://phoenixnap.com/kb/mysql-commands-cheat-sheet)
 - [Mysql Cheatsheet](https://cheatography.com/davechild/cheat-sheets/mysql)
 - [Mysql Cheatsheet](https://devhints.io/mysql)
+- [Dotenv Lib](https://github.com/cdimascio/dotenv-java)
+- [Infox Java-Mysql](https://github.com/professorjosedeassis/infox)
+- [Java-Mysql Example](https://github.com/megalemarcelo/java_fatec_poo_jdbc)
