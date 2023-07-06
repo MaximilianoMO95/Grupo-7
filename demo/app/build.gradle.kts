@@ -23,18 +23,20 @@ dependencies {
     // This dependency is used by the application.
     implementation("com.google.guava:guava:31.1-jre")
 
-
     // UI theme
     implementation("com.formdev:flatlaf:3.1.1")
 
-    // Gson
-    implementation("com.google.code.gson:gson:2.10.1")
+    // MYSQL conector
+    implementation 'mysql:mysql-connector-java:8.0.27'
+
+    // DotEnv - store environments variables
+    implementation 'io.github.cdimascio:dotenv-java:3.0.0'
 }
 
 // Apply a specific Java toolchain to ease working on different environments.
 java {
     toolchain {
-        languageVersion.set(JavaLanguageVersion.of(20))
+        languageVersion.set(JavaLanguageVersion.of(17))
     }
 }
 
