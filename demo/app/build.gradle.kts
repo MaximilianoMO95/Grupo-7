@@ -23,6 +23,10 @@ dependencies {
     // This dependency is used by the application.
     implementation("com.google.guava:guava:31.1-jre")
 
+    
+    // Gson
+    implementation("com.google.code.gson:gson:2.10.1")
+
     // UI theme
     implementation("com.formdev:flatlaf:3.1.1")
 
