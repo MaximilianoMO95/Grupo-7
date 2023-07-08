@@ -2,9 +2,15 @@ package demo.validations;
 
 public class ValidationUtils {
         public static final boolean validateRun(String run) {
-                String regex = "^[0-9]{1,2}.[0-9]{3}.[0-9]{3}-[0-9K]{1}$";
+                String regex = "^[0-9]{7,8}$";
 
                 return run.matches(regex);
+        }
+
+        public static final boolean validateDv(String dv) {
+                String regex = "^[1-9K]{1}$";
+
+                return dv.matches(regex);
         }
 
         public static final boolean validateTel(String tel) {

@@ -17,15 +17,34 @@ class AppTest {
                 assertFalse(ValidationUtils.validateRun("1234567891"));
 
                 // Must pass
-                assertTrue(ValidationUtils.validateRun("11.123.432-6"));
-                assertTrue(ValidationUtils.validateRun("1.123.432-6"));
-                assertTrue(ValidationUtils.validateRun("1.123.432-K"));
+                assertTrue(ValidationUtils.validateRun("11123432"));
+                assertTrue(ValidationUtils.validateRun("1123432"));
+                assertTrue(ValidationUtils.validateRun("1111111"));
 
                 // Will it break?
-                assertFalse(ValidationUtils.validateRun("1.123.432-H"));
-                assertFalse(ValidationUtils.validateRun("11123.432-99"));
-                assertFalse(ValidationUtils.validateRun("11.123.43299"));
-                assertFalse(ValidationUtils.validateRun("11.123.432-99"));
+                assertFalse(ValidationUtils.validateRun("111111111111111111111"));
+                assertFalse(ValidationUtils.validateRun("       "));
+                assertFalse(ValidationUtils.validateRun("--------"));
+                assertFalse(ValidationUtils.validateRun("''''''''"));
+        }
+
+        @Test void validateDv() {
+                // Basic
+                assertFalse(ValidationUtils.validateDv(""));
+                assertFalse(ValidationUtils.validateDv(" "));
+                assertFalse(ValidationUtils.validateDv("0"));
+                assertFalse(ValidationUtils.validateDv("-"));
+
+                // Must pass
+                assertTrue(ValidationUtils.validateDv("1"));
+                assertTrue(ValidationUtils.validateDv("6"));
+                assertTrue(ValidationUtils.validateDv("K"));
+
+                // Will it break?
+                assertFalse(ValidationUtils.validateRun("'"));
+                assertFalse(ValidationUtils.validateRun("1111111111111111"));
+                assertFalse(ValidationUtils.validateRun("''"));
+                assertFalse(ValidationUtils.validateRun("k"));
         }
 
         @Test void validateTel() {
