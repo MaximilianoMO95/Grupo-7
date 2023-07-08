@@ -21,8 +21,8 @@ public class ClientDetailsView extends JPanel {
                 add(clientDataPanel);
         }
 
-        public void loadClientData(Client client) {
-                clientDataPanel.loadClientData(client);
+        public void loadClientData(Client client, Account account) {
+                clientDataPanel.loadClientData(client, account);
         }
 
         public void searchClient(ActionListener actionListener) {
@@ -99,19 +99,19 @@ class ClientDataPanel extends JPanel {
                 accountDataPanel.setVisible(false);
         }
 
-        public void loadClientData(Client client) {
+        public void loadClientData(Client client, Account account) {
                 if (client != null) {
                         notFoundLabel.setVisible(false);
                         personalDataPanel.setVisible(true);
                         accountDataPanel.setVisible(true);
 
                         updateRow("Nombre: ", client.name, personalDataPanel);
-                        updateRow("Apellido: ", client.surname, personalDataPanel);
+                        updateRow("Apellido Paterno: ", client.ap_paterno, personalDataPanel);
+                        updateRow("Apellido Materno: ", client.ap_materno, personalDataPanel);
                         updateRow("Domicilio: ", client.address, personalDataPanel);
                         updateRow("Comuna: ", client.comuna, personalDataPanel);
                         updateRow("Telefono: ", client.address, personalDataPanel);
 
-                        Account account = client.getAccount();
                         updateRow("Numero: ", Integer.toString(account.getAccountNumber()), accountDataPanel);
                         updateRow("Tipo: ", account.getDescription(), accountDataPanel);
                         updateRow("Saldo: ", Integer.toString(account.checkBalance()), accountDataPanel);

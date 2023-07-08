@@ -26,24 +26,44 @@ public class RegisterClientFormView extends JPanel {
 
                 // Margenes
                 gbc.insets = new Insets(6, 6, 6, 6);
-                gbc.gridy++;
+                gbc.gridy += 2;
+                gbc.anchor = GridBagConstraints.WEST;
 
                 // Campo rut
-                gbc.anchor = GridBagConstraints.WEST;
-                addLabelInputText("Rut", 20);
+                JPanel rutPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
+
+                gbc.gridy++;
+                gbc.gridx = 0;
+                add(new JLabel("Rut"), gbc);
+
+                gbc.gridx++;
+                JTextField runField = new JTextField(8);
+                runField.setPreferredSize(new Dimension(200, runField.getPreferredSize().height));
+
+                formData.put("Rut", runField);
+                rutPanel.add(runField);
+
+                rutPanel.add(new JLabel("-"));
+                JTextField dvField = new JTextField(1);
+                dvField.setPreferredSize(new Dimension(50, dvField.getPreferredSize().height));
+
+                formData.put("dv", dvField);
+                rutPanel.add(dvField);
+
+                add(rutPanel, gbc);
 
                 // Cuenta
                 String[] accountTypes = { "Cuenta Corriente", "Cuenta Ahorro" };
                 JComboBox<String> accountTypeComboBox = new JComboBox<>(accountTypes);
 
-                gbc.anchor = GridBagConstraints.EAST;
+                gbc.anchor = GridBagConstraints.LAST_LINE_END;
                 formData.put("Cuenta", accountTypeComboBox);
                 add(accountTypeComboBox, gbc);
-                gbc.gridy++;
+                gbc.gridy += 2;
 
                 // Entrada
                 String[] labelsInputText = {
-                       "Nombre:40",  "Apellido:40", "Telefono:40",
+                       "Nombre:40",  "Apellido Paterno:40", "Apellido Materno:40", "Telefono:40",
                         "Domicilio:40", "Comuna:40", "Numero Cuenta:40"
                 };
 

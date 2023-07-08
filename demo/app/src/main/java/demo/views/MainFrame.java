@@ -21,15 +21,15 @@ public class MainFrame extends JFrame {
                 RegisterClientFormView form = new RegisterClientFormView();
                 ClientDetailsView clientDetails = new ClientDetailsView();
                 HomeView home = new HomeView();
-                DepositView depositView = new DepositView();
-                GirarView girarView = new GirarView();
-                TransferirView transferirView = new TransferirView();
+                // DepositView depositView = new DepositView();
+                // GirarView girarView = new GirarView();
+                // TransferirView transferirView = new TransferirView();
 
                 new ClientController(form, clientDetails);
                 new HomeController(home);
-                new DepositController(depositView);
-                new GirarController(girarView);
-                new TransferirController(transferirView);
+                //new DepositController(depositView);
+                //new GirarController(girarView);
+                //new TransferirController(transferirView);
 
                
                 setLayout(cardLayout);
@@ -38,18 +38,18 @@ public class MainFrame extends JFrame {
                 
                 add(home, "home");
                 add(form, "form");
-                add(clientDetails, "clientDetails");
-                add(depositView, "deposit");
-                add(girarView, "girar");
-                add(transferirView, "transferir");
+                //add(clientDetails, "clientDetails");
+                //add(depositView, "deposit");
+                //add(girarView, "girar");
+                //add(transferirView, "transferir");
 
                 
                 navBar.showClientData(e -> cardLayout.show(MainFrame.this.getContentPane(), "clientDetails"));
                 navBar.showClientForm(e -> cardLayout.show(MainFrame.this.getContentPane(), "form"));
                 navBar.showHome(e -> cardLayout.show(MainFrame.this.getContentPane(), "home"));
-                navBar.showDeposit(e -> cardLayout.show(MainFrame.this.getContentPane(), "deposit"));
-                navBar.showGirar(e -> cardLayout.show(MainFrame.this.getContentPane(), "girar"));
-                navBar.showTransferir(e -> cardLayout.show(MainFrame.this.getContentPane(), "transferir"));
+                //navBar.showDeposit(e -> cardLayout.show(MainFrame.this.getContentPane(), "deposit"));
+                //navBar.showGirar(e -> cardLayout.show(MainFrame.this.getContentPane(), "girar"));
+                //navBar.showTransferir(e -> cardLayout.show(MainFrame.this.getContentPane(), "transferir"));
 
                 
                 ImageIcon imageIcon = new ImageIcon("src/main/java/demo/assets/favicon.png");

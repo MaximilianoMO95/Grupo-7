@@ -14,18 +14,17 @@ import javax.swing.*;
 
 public class ClientController {
         private String databaseFile = "src/main/java/demo/data/clients.json";
-        private Database<Client> database;
+        private SqlClients sql;
         private RegisterClientFormView form;
         private ClientDetailsView clientDetails;
 
         public ClientController(RegisterClientFormView registerClientFormView, ClientDetailsView clientDetailsView) {
-                this.database = new Database<Client>(Client.class);
                 this.form = registerClientFormView;
                 this.clientDetails = clientDetailsView;
-
+                this.sql = new SqlClients();
                 
                 this.form.submitData(e -> {
-                        String[] fieldNames = {"Nombre", "Apellido", "Telefono", "Domicilio", "Comuna", "Numero Cuenta"};
+                        String[] fieldNames = {"Rut", "dv", "Nombre", "Apellido Paterno", "Apellido Materno", "Telefono", "Domicilio", "Comuna", "Numero Cuenta"};
                         List<String> emptyFields = new ArrayList<>();
 
                         for (String fieldName : fieldNames) {
@@ -42,18 +41,22 @@ public class ClientController {
                         }
 
                         String run = this.form.getFieldValue("Rut");
+                        String dv = this.form.getFieldValue("dv");
                         String name = this.form.getFieldValue("Nombre");
-                        String surname = this.form.getFieldValue("Apellido");
+                        String ap_paterno = this.form.getFieldValue("Apellido Paterno");
+                        String ap_materno = this.form.getFieldValue("Apellido Materno");
                         String addr = this.form.getFieldValue("Domicilio");
                         String comuna = this.form.getFieldValue("Comuna");
                         String tel = this.form.getFieldValue("Telefono");
                         String accountNum = this.form.getFieldValue("Numero Cuenta");
-                        Account account;
 
                         if (!ValidationUtils.validateRun(run)) {
                                 errorDialog("Rut es invalido", this.form);
                                 return;
-                        } else if (searchByRun(run) != null) {
+                        } else if (!ValidationUtils.validateDv(dv)) {
+                                errorDialog("Digito Verificador es invalido", this.form);
+                                return;
+                        } else if (this.sql.searchByRun(run) != null) {
                                 errorDialog("Cliente ya existe", this.form);
                                 return;
                         } else if (!ValidationUtils.validateTel(tel)) {
@@ -62,65 +65,39 @@ public class ClientController {
                         } else if (!ValidationUtils.validateAccountNumber(accountNum)) {
                                 errorDialog("Numero de cuenta es invalido", this.form);
                                 return;
-                        } else if (accountExists(Integer.parseInt(accountNum))){
+                        } /* else if (accountExists(Integer.parseInt(accountNum))){
                                 errorDialog("Numero de cuenta ya esta en uso", this.form);
                                 return;
-                        }
+                        }*/
 
+                        /*
                         if (this.form.getFieldValue("Cuenta").equals("Cuenta Ahorro")) {
                                 account = new SavingAccount(Integer.parseInt(accountNum));
                         } else {
                                 account = new CurrentAccount(Integer.parseInt(accountNum));
-                        }
+                        }*/
 
-                        Client client = new Client(run, name, surname, addr, comuna, tel, account);
-                        this.database.writeJsonToFile(client, databaseFile);
-                        this.form.reset();
-                        
-                        JOptionPane.showMessageDialog(this.form, "Cliente Registrado", "Success", JOptionPane.INFORMATION_MESSAGE);
+                        Client client = new Client(run, dv, name, ap_paterno, ap_materno, addr, comuna, tel);
+
+                        if (this.sql.register(client)) {
+                                JOptionPane.showMessageDialog(this.form, "Cliente Registrado", "Success", JOptionPane.INFORMATION_MESSAGE);
+                                this.form.reset();
+                        } else {
+                                errorDialog("Problema con la base de datos", this.form);
+                        }
                 });
 
               
                 this.clientDetails.searchClient(e -> {
                         String targetRun = clientDetails.getSearchFieldValue();
-                        Client wantedClient = searchByRun(targetRun);
+                        Client wantedClient = this.sql.searchByRun(targetRun);
+                        Account account = null;
 
-                        this.clientDetails.loadClientData(wantedClient);
+                        this.clientDetails.loadClientData(wantedClient, account);
                 });
         }
 
         private void errorDialog(String message, Component component) {
                 JOptionPane.showMessageDialog(component, message, "Error",  JOptionPane.ERROR_MESSAGE);
-        }
-
-        @Nullable
-        private Client searchByRun(String run) {
-                List<Client> clients = this.database.readJsonFromFile(databaseFile);
-                Client wantedClient = null;
-
-                if (clients != null) {
-                        for (Client client : clients) {
-                                if (client.run.equals(run)) {
-                                        wantedClient = client;
-                                        break;
-                                }
-                        }
-                }
-
-                return wantedClient;
-        }
-
-        private boolean accountExists(int accountNum) {
-                List<Client> clients = this.database.readJsonFromFile(databaseFile);
-
-                if (clients != null) {
-                        for (Client client : clients) {
-                                if (client.getAccount().getAccountNumber() == accountNum) {
-                                        return true;
-                                }
-                        }
-                }
-
-                return false;
         }
 }

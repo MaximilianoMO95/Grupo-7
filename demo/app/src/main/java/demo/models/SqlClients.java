@@ -1,21 +1,27 @@
 package demo.models;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Connection;
 import java.sql.SQLException;
 
 import java.util.logging.Logger;
 import java.util.logging.Level;
 
+import javax.annotation.Nullable;
+
+
 public class SqlClients extends MysqlConnect {
 
         public boolean register(Client client) {
                 String query =
-                        "INSERT INTO cliente (run, dv, nombre, ap_paterno, ap_materno, tel, direccion, comuna)"
+                        "INSERT INTO cliente (run, dv, nombre, ap_paterno, ap_materno, tel, domicilio, comuna)"
                         + "VALUES (?, ?, ?, ?, ?, ?, ?, ?)"
                 ; 
                 
                 try {
-                        PreparedStatement ps = connect().prepareStatement(query);
+                        Connection conn = connect();
+                        PreparedStatement ps = conn.prepareStatement(query);
 
                         ps.setString(1, client.run);
                         ps.setString(2, client.dv);
@@ -25,6 +31,7 @@ public class SqlClients extends MysqlConnect {
                         ps.setString(6, client.tel);
                         ps.setString(7, client.address);
                         ps.setString(8, client.comuna);
+                        ps.execute();
 
                         return true;
 
@@ -32,5 +39,37 @@ public class SqlClients extends MysqlConnect {
                         Logger.getLogger(SqlClients.class.getName()).log(Level.SEVERE, null, e);
                         return false;
                 }
+        }
+        
+        @Nullable
+        public Client searchByRun(String run) {
+                Client client = null;
+                String query = "SELECT * FROM cliente WHERE run = ?"; 
+                
+                try {
+                        Connection conn = connect();
+                        PreparedStatement ps = conn.prepareStatement(query);
+
+                        ps.setString(1, run);
+                        ResultSet result = ps.executeQuery();
+
+                        if (result.next()) {
+                                int id = result.getInt("int");
+                                String dv = result.getString("dv");
+                                String name = result.getString("nombre");
+                                String ap_paterno = result.getString("ap_paterno");
+                                String ap_materno = result.getString("ap_materno");
+                                String tel = result.getString("tel");
+                                String address = result.getString("direccion");
+                                String comuna = result.getString("comuna");
+
+                                client = new Client(id, run, dv, name, ap_paterno, ap_materno, tel, address, comuna);
+                        }
+
+                } catch (SQLException e) {
+                        Logger.getLogger(SqlClients.class.getName()).log(Level.SEVERE, null, e);
+                }
+                
+                return client;
         }
 }
