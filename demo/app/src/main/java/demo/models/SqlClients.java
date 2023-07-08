@@ -50,17 +50,17 @@ public class SqlClients extends MysqlConnect {
                         Connection conn = connect();
                         PreparedStatement ps = conn.prepareStatement(query);
 
-                        ps.setString(1, run);
+                        ps.setInt(1, Integer.parseInt(run));
                         ResultSet result = ps.executeQuery();
 
                         if (result.next()) {
-                                int id = result.getInt("int");
+                                int id = result.getInt("id");
                                 String dv = result.getString("dv");
                                 String name = result.getString("nombre");
                                 String ap_paterno = result.getString("ap_paterno");
                                 String ap_materno = result.getString("ap_materno");
                                 String tel = result.getString("tel");
-                                String address = result.getString("direccion");
+                                String address = result.getString("domicilio");
                                 String comuna = result.getString("comuna");
 
                                 client = new Client(id, run, dv, name, ap_paterno, ap_materno, tel, address, comuna);
