@@ -6,9 +6,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-import java.util.logging.Logger;
-import java.util.logging.Level;
-
 public class MysqlConnect {
         private static final String ENVDIR = "src/main/java/demo/assets";
         private final String DB_URL;
@@ -40,31 +37,26 @@ public class MysqlConnect {
                 DB_PASSWORD = dotenv.get("DB_PASSWORD");
         }
 
-        public Connection connect() {
+        public Connection connect() throws SQLException {
                 // Create new connection
                 if (connection == null) {
                         try {
                                 connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
 
-                        } catch (SQLException e) {
-                                Logger.getLogger(MysqlConnect.class.getName()).log(Level.SEVERE, null, e);
-                        }
+                        // Fix this dumb catch-rethrow
+                        } catch (SQLException e) { throw e; }
                 }
 
                 return connection;
         }
 
         public void disconnect() {
-                if (connection == null) {
-                        return;
-                }
+                if (connection == null) { return; }
 
                 try {
                         connection.close();
                         connection = null;
 
-                } catch (SQLException e) {
-                        Logger.getLogger(MysqlConnect.class.getName()).log(Level.SEVERE, null, e);
-                }
+                } catch (SQLException e) { e.printStackTrace(); }
         }
 }
