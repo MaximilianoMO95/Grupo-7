@@ -11,8 +11,8 @@ CREATE TABLE IF NOT EXISTS cliente (
     run                 INT NOT NULL,
     dv                  CHAR(1) NOT NULL,
     nombre              VARCHAR(60) NOT NULL,
-    apellido_materno    VARCHAR(30) NOT NULL,
-    apellido_paterno    VARCHAR(30) NOT NULL,
+    ap_materno          VARCHAR(30) NOT NULL,
+    ap_paterno          VARCHAR(30) NOT NULL,
     tel                 VARCHAR(16) NOT NULL,
     comuna              VARCHAR(30) NOT NULL,
     domicilio           VARCHAR(60) NOT NULL
