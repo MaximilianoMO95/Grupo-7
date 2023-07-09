@@ -13,18 +13,11 @@ CREATE TABLE IF NOT EXISTS cliente (
 
 CREATE TABLE IF NOT EXISTS cuenta (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    
+
+    cliente_id INT NOT NULL,
+    numero INT NOT NULL,
+    saldo INT NOT NULL,
     descripcion VARCHAR(40) NOT NULL,
-    numero      INT NOT NULL,
-    saldo       INT NOT NULL
-);
 
-CREATE TABLE IF NOT EXISTS cuenta_cliente (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    
-    cuenta_id   INT NOT NULL,
-    cliente_id  INT NOT NULL,
-
-    CONSTRAINT fk_cuenta_cliente_cuenta FOREIGN KEY (cuenta_id) REFERENCES cuenta(id),
-    CONSTRAINT fk_cuenta_cliente_cliente FOREIGN KEY (cliente_id) REFERENCES cliente(id)
+    CONSTRAINT fk_cuenta_cliente FOREIGN KEY (cliente_id) REFERENCES cliente(id)
 );
