@@ -2,26 +2,26 @@ package demo.controllers;
 
 import demo.views.ClientDetailsView;
 import demo.views.RegisterClientFormView;
-import demo.models.*;
 import demo.validations.ValidationUtils;
+import demo.models.*;
 
 import java.awt.Component;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.Nullable;
 import javax.swing.*;
 
 public class ClientController {
-        private String databaseFile = "src/main/java/demo/data/clients.json";
-        private SqlClients sql;
+        private SqlClients sqlClient;
+        private SqlAccounts sqlAccounts;
         private RegisterClientFormView form;
         private ClientDetailsView clientDetails;
 
         public ClientController(RegisterClientFormView registerClientFormView, ClientDetailsView clientDetailsView) {
                 this.form = registerClientFormView;
                 this.clientDetails = clientDetailsView;
-                this.sql = new SqlClients();
+                this.sqlClient = new SqlClients();
+                this.sqlAccounts = new SqlAccounts();
                 
                 this.form.submitData(e -> {
                         String[] fieldNames = {"Rut", "dv", "Nombre", "Apellido Paterno", "Apellido Materno", "Telefono", "Domicilio", "Comuna", "Numero Cuenta"};
@@ -49,6 +49,7 @@ public class ClientController {
                         String comuna = this.form.getFieldValue("Comuna");
                         String tel = this.form.getFieldValue("Telefono");
                         String accountNum = this.form.getFieldValue("Numero Cuenta");
+                        Account account = null;
 
                         if (!ValidationUtils.validateRun(run)) {
                                 errorDialog("Rut es invalido", this.form);
@@ -56,7 +57,7 @@ public class ClientController {
                         } else if (!ValidationUtils.validateDv(dv)) {
                                 errorDialog("Digito Verificador es invalido", this.form);
                                 return;
-                        } else if (this.sql.searchByRun(run) != null) {
+                        } else if (this.sqlClient.searchByRun(run) != null) {
                                 errorDialog("Cliente ya existe", this.form);
                                 return;
                         } else if (!ValidationUtils.validateTel(tel)) {
@@ -65,21 +66,20 @@ public class ClientController {
                         } else if (!ValidationUtils.validateAccountNumber(accountNum)) {
                                 errorDialog("Numero de cuenta es invalido", this.form);
                                 return;
-                        } /* else if (accountExists(Integer.parseInt(accountNum))){
+                        } else if (this.sqlAccounts.searchByAccountNumber(accountNum) != null){
                                 errorDialog("Numero de cuenta ya esta en uso", this.form);
                                 return;
-                        }*/
+                        }
 
-                        /*
                         if (this.form.getFieldValue("Cuenta").equals("Cuenta Ahorro")) {
                                 account = new SavingAccount(Integer.parseInt(accountNum));
                         } else {
                                 account = new CurrentAccount(Integer.parseInt(accountNum));
-                        }*/
+                        }
 
                         Client client = new Client(run, dv, name, ap_paterno, ap_materno, addr, comuna, tel);
 
-                        if (this.sql.register(client)) {
+                        if (this.sqlClient.register(client, account)) {
                                 JOptionPane.showMessageDialog(this.form, "Cliente Registrado", "Success", JOptionPane.INFORMATION_MESSAGE);
                                 this.form.reset();
                         } else {
@@ -90,7 +90,7 @@ public class ClientController {
               
                 this.clientDetails.searchClient(e -> {
                         String targetRun = clientDetails.getSearchFieldValue();
-                        Client wantedClient = this.sql.searchByRun(targetRun);
+                        Client wantedClient = this.sqlClient.searchByRun(targetRun);
                         Account account = null;
 
                         this.clientDetails.loadClientData(wantedClient, account);

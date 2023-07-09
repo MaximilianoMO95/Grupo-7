@@ -15,17 +15,18 @@ public class SqlAccounts extends MysqlConnect {
 
         public boolean newAccount(Account account) {
                 String query =
-                        "INSERT INTO cuenta (descripcion, numero, saldo)"
-                        + "VALUES (?, ?, ?)"
+                        "INSERT INTO cuenta (descripcion, numero, saldo, cliente_id)"
+                        + "VALUES (?, ?, ?, ?)"
                 ; 
                 
                 try {
                         Connection conn = connect();
                         PreparedStatement ps = conn.prepareStatement(query);
 
-                        ps.setInt(1, account.getDescription());
+                        ps.setString(1, account.getDescription());
                         ps.setInt(2, account.getAccountNumber());
                         ps.setInt(3, 0);
+                        ps.setInt(4, account.clientId);
                         ps.execute();
 
                         return true;
@@ -38,7 +39,6 @@ public class SqlAccounts extends MysqlConnect {
 
         @Nullable
         public Account searchByAccountNumber(String number) {
-                number = Integer.parseInt(number);
                 String query = "SELECT * FROM cuenta WHERE numero = ?";
                 Account account = null;
                 
@@ -46,15 +46,16 @@ public class SqlAccounts extends MysqlConnect {
                         Connection conn = connect();
                         PreparedStatement ps = conn.prepareStatement(query);
 
-                        ps.setInt(1, number);
+                        ps.setInt(1, Integer.parseInt(number));
                         ResultSet result = ps.executeQuery();
 
                         if (result.next()) {
                                 int id = result.getInt("id");
+                                int clientId = result.getInt("cliente_id");
                                 int balance = result.getInt("saldo");
                                 String description = result.getString("descripcion");
 
-                                account = new Account(id, number, balance, description);
+                                account = new Account(id, clientId, Integer.parseInt(number), balance, description);
                         }
 
                 } catch (SQLException e) {
