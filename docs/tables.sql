@@ -1,10 +1,3 @@
-CREATE TABLE IF NOT EXISTS tipo_cuenta (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-
-    nombre          VARCHAR(25) NOT NULL,
-    descripcion     TEXT
-);
-
 CREATE TABLE IF NOT EXISTS cliente (
     id INT AUTO_INCREMENT PRIMARY KEY,
 
@@ -21,11 +14,9 @@ CREATE TABLE IF NOT EXISTS cliente (
 CREATE TABLE IF NOT EXISTS cuenta (
     id INT AUTO_INCREMENT PRIMARY KEY,
     
-    tipo_id INT NOT NULL,
-    numero  INT NOT NULL,
-    saldo   INT NOT NULL,
-
-    CONSTRAINT fk_cuenta_tipo FOREIGN KEY (tipo_id) REFERENCES tipo_cuenta(id)
+    descripcion VARCHAR(40) NOT NULL,
+    numero      INT NOT NULL,
+    saldo       INT NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS cuenta_cliente (
