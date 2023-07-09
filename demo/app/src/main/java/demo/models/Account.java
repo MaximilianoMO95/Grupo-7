@@ -1,13 +1,21 @@
 package demo.models;
 
 public class Account {
-        protected int accountNumber;
+        public int id;
+        public int accountNumber;
         protected int balance;
-        protected String description;
+        public String description;
 
         public Account(int accountNumber) {
                 this.accountNumber = accountNumber;
                 this.balance = 0;
+        }
+
+        public Account(int id, int accountNumber, int balance, String description) {
+                this.id = id;
+                this.description = description;
+                this.accountNumber = accountNumber;
+                this.balance = balance;
         }
 
         public int getAccountNumber() {
@@ -34,4 +42,3 @@ public class Account {
                 balance -= amount;
         }
 }
-
