@@ -13,5 +13,5 @@ CREATE TABLE IF NOT EXISTS cliente (
     /* Cuenta */
     numero_cuenta       INT NOT NULL,
     saldo_cuenta        INT NOT NULL,
-    tipo_cuenta         VARCHAR(40) NOT NULL,
+    tipo_cuenta         VARCHAR(40) NOT NULL
 );
