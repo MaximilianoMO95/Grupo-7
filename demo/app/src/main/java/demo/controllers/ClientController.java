@@ -77,9 +77,9 @@ public class ClientController {
                                 account = new CurrentAccount(Integer.parseInt(accountNum));
                         }
 
-                        Client client = new Client(run, dv, name, ap_paterno, ap_materno, addr, comuna, tel);
+                        Client client = new Client(run, dv, name, ap_paterno, ap_materno, addr, comuna, tel, account);
 
-                        if (this.sqlClient.register(client, account)) {
+                        if (this.sqlClient.register(client)) {
                                 JOptionPane.showMessageDialog(this.form, "Cliente Registrado", "Success", JOptionPane.INFORMATION_MESSAGE);
                                 this.form.reset();
                         } else {

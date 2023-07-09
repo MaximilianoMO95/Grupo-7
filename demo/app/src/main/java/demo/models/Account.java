@@ -1,8 +1,6 @@
 package demo.models;
 
 public class Account {
-        public int id;
-        public int clientId;
         public int accountNumber;
         protected int balance;
         public String description;
@@ -12,16 +10,7 @@ public class Account {
                 this.balance = 0;
         }
 
-        public Account(int id, int clientId, int accountNumber, int balance, String description) {
-                this.id = id;
-                this.clientId = clientId;
-                this.description = description;
-                this.accountNumber = accountNumber;
-                this.balance = balance;
-        }
-
-        public Account(int id, int accountNumber, int balance, String description) {
-                this.id = id;
+        public Account(int accountNumber, int balance, String description) {
                 this.description = description;
                 this.accountNumber = accountNumber;
                 this.balance = balance;

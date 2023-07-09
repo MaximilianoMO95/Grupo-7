@@ -10,8 +10,9 @@ public class Client {
         public String address;
         public String comuna;
         public String tel;
+        private Account account;
 
-        public Client(String run, String dv, String name, String ap_paterno, String ap_materno, String address, String comuna, String tel) {
+        public Client(String run, String dv, String name, String ap_paterno, String ap_materno, String address, String comuna, String tel, Account account) {
                 this.run        = run;
                 this.dv         = dv;
                 this.name       = name;
@@ -20,9 +21,10 @@ public class Client {
                 this.address    = address;
                 this.comuna     = comuna;
                 this.tel        = tel;
+                this.account    = account;
         }
 
-        public Client(int id, String run, String dv, String name, String ap_paterno, String ap_materno, String address, String comuna, String tel) {
+        public Client(int id, String run, String dv, String name, String ap_paterno, String ap_materno, String address, String comuna, String tel, Account account) {
                 this.id         = id;
                 this.run        = run;
                 this.dv         = dv;
@@ -32,9 +34,10 @@ public class Client {
                 this.address    = address;
                 this.comuna     = comuna;
                 this.tel        = tel;
+                this.account    = account;
         }
 
         public Account getAccount() {
-                return new Account(123);
+                return  this.account;
         }
 }
