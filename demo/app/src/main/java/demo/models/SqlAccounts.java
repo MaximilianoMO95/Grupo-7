@@ -32,7 +32,7 @@ public class SqlAccounts extends MysqlConnect {
                         return true;
 
                 } catch (SQLException e) {
-                        Logger.getLogger(SqlClients.class.getName()).log(Level.SEVERE, null, e);
+                        Logger.getLogger(SqlAccounts.class.getName()).log(Level.SEVERE, null, e);
                         return false;
                 }
         }
@@ -59,9 +59,29 @@ public class SqlAccounts extends MysqlConnect {
                         }
 
                 } catch (SQLException e) {
-                        Logger.getLogger(SqlClients.class.getName()).log(Level.SEVERE, null, e);
+                        Logger.getLogger(SqlAccounts.class.getName()).log(Level.SEVERE, null, e);
                 }
 
                 return account;
+        }
+
+        public boolean withdraw(int accountId, int amount) {
+                String query = "UPDATE cuenta SET saldo = saldo + ? WHERE id = ?";
+                
+                try {
+                        Connection conn = connect();
+                        PreparedStatement ps = conn.prepareStatement(query);
+
+                        ps.setInt(1, amount);
+                        ps.setInt(2, accountId);
+                        ps.execute();
+
+                        int rowsAffected = ps.executeUpdate();
+                        return (rowsAffected > 0);
+
+                } catch (SQLException e) {
+                        Logger.getLogger(SqlAccounts.class.getName()).log(Level.SEVERE, null, e);
+                        return false;
+                }
         }
 }
