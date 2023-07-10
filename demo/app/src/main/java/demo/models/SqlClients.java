@@ -13,10 +13,8 @@ import javax.annotation.Nullable;
 public class SqlClients extends MysqlConnect {
 
         public boolean register(Client client) {
-                String query =
-                        "INSERT INTO cliente (run, dv, nombre, ap_paterno, ap_materno, tel, domicilio, comuna, saldo_cuenta, numero_cuenta, tipo_cuenta)"
-                        + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
-                ;
+                String query = "INSERT INTO cliente (run, dv, nombre, ap_paterno, ap_materno, tel, domicilio, comuna, saldo_cuenta, numero_cuenta, tipo_cuenta)"
+                                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
                 boolean created = false;
                 Account account = client.getAccount();
 
@@ -43,7 +41,7 @@ public class SqlClients extends MysqlConnect {
                         Logger.getLogger(SqlClients.class.getName()).log(Level.SEVERE, null, e);
                         created = false;
                 }
-                
+
                 return created;
         }
 
@@ -70,7 +68,46 @@ public class SqlClients extends MysqlConnect {
                                 String comuna = result.getString("comuna");
 
                                 String tipoCuenta = result.getString("tipo_cuenta");
-                                int saldo = result.getInt("saldo");
+                                int saldo = result.getInt("saldo_cuenta");
+                                int numeroCuenta = result.getInt("numero_cuenta");
+
+                                Account account = new Account(numeroCuenta, saldo, tipoCuenta);
+
+                                client = new Client(id, run, dv, name, ap_paterno, ap_materno, tel, address, comuna, account);
+                        }
+
+                } catch (SQLException e) {
+                        Logger.getLogger(SqlClients.class.getName()).log(Level.SEVERE, null, e);
+                }
+
+                return client;
+        }
+
+        @Nullable
+        public Client searchByRun(String run, String dv) {
+                String query = "SELECT * FROM cliente WHERE run = ? AND dv = ?";
+                Client client = null;
+
+                PreparedStatement preparedStatement = null;
+
+                try {
+                        Connection conn = connect();
+                        preparedStatement = conn.prepareStatement(query);
+                        preparedStatement.setString(1, run);
+                        preparedStatement.setString(2, dv);
+                        ResultSet result = preparedStatement.executeQuery();
+
+                        if (result.next()) {
+                                int id = result.getInt("id");
+                                String name = result.getString("nombre");
+                                String ap_paterno = result.getString("ap_paterno");
+                                String ap_materno = result.getString("ap_materno");
+                                String tel = result.getString("tel");
+                                String address = result.getString("domicilio");
+                                String comuna = result.getString("comuna");
+
+                                String tipoCuenta = result.getString("tipo_cuenta");
+                                int saldo = result.getInt("saldo_cuenta");
                                 int numeroCuenta = result.getInt("numero_cuenta");
 
                                 Account account = new Account(numeroCuenta, saldo, tipoCuenta);
@@ -114,7 +151,8 @@ public class SqlClients extends MysqlConnect {
 
                                 Account account = new Account(numeroCuenta, saldo, tipoCuenta);
 
-                                client = new Client(id, run, dv, name, ap_paterno, ap_materno, tel, address, comuna, account);
+                                client = new Client(id, run, dv, name, ap_paterno, ap_materno, tel, address, comuna,
+                                                account);
                         }
 
                 } catch (SQLException e) {
