@@ -11,9 +11,9 @@ import java.util.logging.Level;
 
 public class MysqlConnect {
         private static final String ENVDIR = "src/main/java/demo/assets";
-        private final String DB_URL;
-        private final String DB_USER;
-        private final String DB_PASSWORD;
+        private String DB_URL = "jdbc:mysql://127.0.0.1:3306/westbank";
+        private String DB_USER = "myuser";
+        private String DB_PASSWORD = "mypassword";
 
         private Connection connection;
 
