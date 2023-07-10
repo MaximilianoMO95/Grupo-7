@@ -55,7 +55,7 @@ public class ClientController {
                         } else if (!ValidationUtils.validateDv(dv)) {
                                 errorDialog("Digito Verificador es invalido", this.form);
                                 return;
-                        } else if (this.sqlClient.searchByRun(run) != null) {
+                        } else if (this.sqlClient.searchByRun(run, dv) != null) {
                                 errorDialog("Cliente ya existe", this.form);
                                 return;
                         } else if (!ValidationUtils.validateTel(tel)) {
