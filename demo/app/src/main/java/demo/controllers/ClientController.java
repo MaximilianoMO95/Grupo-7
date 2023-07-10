@@ -13,7 +13,6 @@ import javax.swing.*;
 
 public class ClientController {
         private SqlClients sqlClient;
-        private SqlAccounts sqlAccounts;
         private RegisterClientFormView form;
         private ClientDetailsView clientDetails;
 
@@ -21,7 +20,6 @@ public class ClientController {
                 this.form = registerClientFormView;
                 this.clientDetails = clientDetailsView;
                 this.sqlClient = new SqlClients();
-                this.sqlAccounts = new SqlAccounts();
                 
                 this.form.submitData(e -> {
                         String[] fieldNames = {"Rut", "dv", "Nombre", "Apellido Paterno", "Apellido Materno", "Telefono", "Domicilio", "Comuna", "Numero Cuenta"};
@@ -66,7 +64,7 @@ public class ClientController {
                         } else if (!ValidationUtils.validateAccountNumber(accountNum)) {
                                 errorDialog("Numero de cuenta es invalido", this.form);
                                 return;
-                        } else if (this.sqlAccounts.searchByAccountNumber(accountNum) != null){
+                        } else if (this.sqlClient.searchByAccountNumber(accountNum) != null){
                                 errorDialog("Numero de cuenta ya esta en uso", this.form);
                                 return;
                         }
@@ -91,9 +89,8 @@ public class ClientController {
                 this.clientDetails.searchClient(e -> {
                         String targetRun = clientDetails.getSearchFieldValue();
                         Client wantedClient = this.sqlClient.searchByRun(targetRun);
-                        Account account = null;
 
-                        this.clientDetails.loadClientData(wantedClient, account);
+                        this.clientDetails.loadClientData(wantedClient);
                 });
         }
 
