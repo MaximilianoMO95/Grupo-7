@@ -27,7 +27,7 @@ public class TransferirController {
                                 transferirView.displayErrorMessage("cuenta de destino vacia");
                                 return;
                         } else if (!ValidationUtils.validateAccountNumber(srcAccountNum)) {
-                                transferirView.displayErrorMessage("cuenta de destino invalida");
+                                transferirView.displayErrorMessage("cuenta de origen invalida");
                                 return;
                          } else if (!ValidationUtils.validateAccountNumber(dstAccountNum)) {
                                 transferirView.displayErrorMessage("cuenta de destino invalida");
