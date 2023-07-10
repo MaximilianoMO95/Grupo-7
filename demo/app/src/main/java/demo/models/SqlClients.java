@@ -146,13 +146,12 @@ public class SqlClients extends MysqlConnect {
                                 String comuna = result.getString("comuna");
 
                                 String tipoCuenta = result.getString("tipo_cuenta");
-                                int saldo = result.getInt("saldo");
+                                int saldo = result.getInt("saldo_cuenta");
                                 int numeroCuenta = result.getInt("numero_cuenta");
 
                                 Account account = new Account(numeroCuenta, saldo, tipoCuenta);
 
-                                client = new Client(id, run, dv, name, ap_paterno, ap_materno, tel, address, comuna,
-                                                account);
+                                client = new Client(id, run, dv, name, ap_paterno, ap_materno, address, comuna, tel, account);
                         }
 
                 } catch (SQLException e) {
