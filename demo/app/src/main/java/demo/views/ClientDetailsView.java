@@ -21,37 +21,53 @@ public class ClientDetailsView extends JPanel {
                 add(clientDataPanel);
         }
 
-        public void loadClientData(Client client, Account account) {
-                clientDataPanel.loadClientData(client, account);
+        public void loadClientData(Client client) {
+                clientDataPanel.loadClientData(client);
         }
 
         public void searchClient(ActionListener actionListener) {
                 this.searchPanel.searchClient(actionListener);
         }
 
-        public String getSearchFieldValue() {
-                return searchPanel.getSearchFieldValue();
+        public String getRunFieldValue() {
+                return searchPanel.getRunFieldValue();
+        }
+
+        public String getDvFieldValue() {
+                return searchPanel.getDvFieldValue();
         }
 }
 
 class SearchPanel extends JPanel {
-        private JTextField searchField;
+        private JTextField runField;
+        private JTextField dvField;
         private JButton searchButton;
 
         public SearchPanel() {
-                searchField = new JTextField(20);
+                runField = new JTextField(20);
+                dvField = new JTextField(1);
                 searchButton = new JButton("Buscar");
 
-                JLabel searchLabel = new JLabel("Rut");
+                JLabel runLabel = new JLabel("Rut");
+                JLabel dvLabel = new JLabel("-");
+                
 
                 setBorder(BorderFactory.createEmptyBorder(40, 0, 20, 0));
-                add(searchLabel);
-                add(searchField);
+                add(runLabel);
+                add(runField);
+
+                add(dvLabel);
+                add(dvField);
+
                 add(searchButton);
         }
 
-        public String getSearchFieldValue() {
-                return searchField.getText();
+        public String getRunFieldValue() {
+                return runField.getText();
+        }
+
+        public String getDvFieldValue() {
+                return dvField.getText();
         }
 
         public void searchClient(ActionListener actionListener) {
@@ -99,7 +115,7 @@ class ClientDataPanel extends JPanel {
                 accountDataPanel.setVisible(false);
         }
 
-        public void loadClientData(Client client, Account account) {
+        public void loadClientData(Client client) {
                 if (client != null) {
                         notFoundLabel.setVisible(false);
                         personalDataPanel.setVisible(true);
@@ -112,6 +128,7 @@ class ClientDataPanel extends JPanel {
                         updateRow("Comuna: ", client.comuna, personalDataPanel);
                         updateRow("Telefono: ", client.address, personalDataPanel);
 
+                        Account account = client.getAccount();
                         updateRow("Numero: ", Integer.toString(account.getAccountNumber()), accountDataPanel);
                         updateRow("Tipo: ", account.getDescription(), accountDataPanel);
                         updateRow("Saldo: ", Integer.toString(account.checkBalance()), accountDataPanel);

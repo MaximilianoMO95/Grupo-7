@@ -85,9 +85,11 @@ public class SqlClients extends MysqlConnect {
                 return client;
         }
 
+        @Nullable
         public Client searchByAccountNumber(String number) {
                 String query = "SELECT * FROM cliente WHERE numero_cuenta = ?";
                 Client client = null;
+
                 try {
                         Connection conn = connect();
                         PreparedStatement ps = conn.prepareStatement(query);

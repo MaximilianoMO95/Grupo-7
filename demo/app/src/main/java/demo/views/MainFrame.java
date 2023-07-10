@@ -38,7 +38,7 @@ public class MainFrame extends JFrame {
                 
                 add(home, "home");
                 add(form, "form");
-                //add(clientDetails, "clientDetails");
+                add(clientDetails, "clientDetails");
                 //add(depositView, "deposit");
                 //add(girarView, "girar");
                 //add(transferirView, "transferir");

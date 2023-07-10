@@ -87,8 +87,9 @@ public class ClientController {
 
               
                 this.clientDetails.searchClient(e -> {
-                        String targetRun = clientDetails.getSearchFieldValue();
-                        Client wantedClient = this.sqlClient.searchByRun(targetRun);
+                        String targetRun = clientDetails.getRunFieldValue();
+                        String targetDv = clientDetails.getDvFieldValue();
+                        Client wantedClient = this.sqlClient.searchByRun(targetRun, targetDv);
 
                         this.clientDetails.loadClientData(wantedClient);
                 });
