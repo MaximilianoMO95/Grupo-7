@@ -69,11 +69,48 @@ public class SqlClients extends MysqlConnect {
                                 String address = result.getString("domicilio");
                                 String comuna = result.getString("comuna");
 
-                                String tipo_cuenta = result.getString("tipo_cuenta");
+                                String tipoCuenta = result.getString("tipo_cuenta");
                                 int saldo = result.getInt("saldo");
                                 int numeroCuenta = result.getInt("numero_cuenta");
 
-                                Account account = new Account(numeroCuenta, saldo, tipo_cuenta);
+                                Account account = new Account(numeroCuenta, saldo, tipoCuenta);
+
+                                client = new Client(id, run, dv, name, ap_paterno, ap_materno, tel, address, comuna, account);
+                        }
+
+                } catch (SQLException e) {
+                        Logger.getLogger(SqlClients.class.getName()).log(Level.SEVERE, null, e);
+                }
+
+                return client;
+        }
+
+        public Client searchByAccountNumber(String number) {
+                String query = "SELECT * FROM cliente WHERE numero_cuenta = ?";
+                Client client = null;
+                try {
+                        Connection conn = connect();
+                        PreparedStatement ps = conn.prepareStatement(query);
+
+                        ps.setInt(1, Integer.parseInt(number));
+                        ResultSet result = ps.executeQuery();
+
+                        if (result.next()) {
+                                String run = Integer.toString(result.getInt("run"));
+                                int id = result.getInt("id");
+                                String dv = result.getString("dv");
+                                String name = result.getString("nombre");
+                                String ap_paterno = result.getString("ap_paterno");
+                                String ap_materno = result.getString("ap_materno");
+                                String tel = result.getString("tel");
+                                String address = result.getString("domicilio");
+                                String comuna = result.getString("comuna");
+
+                                String tipoCuenta = result.getString("tipo_cuenta");
+                                int saldo = result.getInt("saldo");
+                                int numeroCuenta = result.getInt("numero_cuenta");
+
+                                Account account = new Account(numeroCuenta, saldo, tipoCuenta);
 
                                 client = new Client(id, run, dv, name, ap_paterno, ap_materno, tel, address, comuna, account);
                         }
