@@ -49,8 +49,8 @@ public class GirarController {
                 if (account.checkBalance() < amount) {
                         girarView.displayErrorMessage("Fondos insuficientes");
                         return;
-                } else if (amount < 0) {
-                        girarView.displayErrorMessage("Nice Try");
+                } else if (amount <= 0) {
+                        girarView.displayErrorMessage("Cantidad Invalida");
                         return;
                 }
 

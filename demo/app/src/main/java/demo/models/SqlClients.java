@@ -160,28 +160,29 @@ public class SqlClients extends MysqlConnect {
 
                 return client;
         }
+
         public boolean deposit(Client client, int amount) {
-        String query = "UPDATE cliente SET saldo_cuenta = saldo_cuenta + ? WHERE id = ?";
-        boolean success = false;
+                String query = "UPDATE cliente SET saldo_cuenta = saldo_cuenta + ? WHERE id = ?";
+                boolean success = false;
 
-        try {
-            Connection conn = connect();
-            PreparedStatement ps = conn.prepareStatement(query);
-            ps.setInt(1, amount);
-            ps.setInt(2, client.id);
+                try {
+                        Connection conn = connect();
+                        PreparedStatement ps = conn.prepareStatement(query);
+                        ps.setInt(1, amount);
+                        ps.setInt(2, client.id);
 
-            int rowsAffected = ps.executeUpdate();
-            if (rowsAffected > 0) {
-                success = true;
-            }
+                        int rowsAffected = ps.executeUpdate();
+                        if (rowsAffected > 0) {
+                                success = true;
+                        }
 
-        } catch (SQLException e) {
-            Logger.getLogger(SqlClients.class.getName()).log(Level.SEVERE, null, e);
-            success = false;
+                } catch (SQLException e) {
+                        Logger.getLogger(SqlClients.class.getName()).log(Level.SEVERE, null, e);
+                        success = false;
+                }
+
+                return success;
         }
-
-        return success;
-    }
 
         public boolean withdraw(Client client, int amount) {
                 String query = "UPDATE cliente SET saldo_cuenta = saldo_cuenta - ? WHERE id = ?";
@@ -204,5 +205,9 @@ public class SqlClients extends MysqlConnect {
                 }
 
                 return success;
+        }
+
+        public boolean transfer(Client srcClient, Client dstClient) {
+                return true;
         }
 }

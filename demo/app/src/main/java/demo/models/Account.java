@@ -36,7 +36,8 @@ public class Account {
                 balance += amount;
         }
 
-        public void moneyTransfer(int amount, int destNumber) {
+        public void moneyTransfer(int amount, Account destinationAccount) {
                 balance -= amount;
+                destinationAccount.deposit(amount);
         }
 }

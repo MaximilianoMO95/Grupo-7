@@ -80,16 +80,16 @@ public class TransferirView extends JPanel {
                 add(new JPanel(), gbc);
         }
 
-        public JTextField getSourceAccountField() {
-                return sourceAccountField;
+        public String getSourceAccountField() {
+                return sourceAccountField.getText();
         }
 
-        public JTextField getDestinationAccountField() {
-                return destinationAccountField;
+        public String getDestinationAccountField() {
+                return destinationAccountField.getText();
         }
 
-        public JTextField getTransferAmountField() {
-                return transferAmountField;
+        public  String getTransferAmountField() {
+                return transferAmountField.getText();
         }
 
         public void transfer(ActionListener actionListener) {

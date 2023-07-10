@@ -3,21 +3,17 @@ package demo.controllers;
 
 import demo.models.Client;
 import demo.models.SqlClients;
-import demo.models.SqlAccounts;
 import demo.views.DepositView;
 
-import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class DepositController {
     private SqlClients sqlClients;
-    private SqlAccounts sqlAccounts;
     private DepositView depositView;
 
     public DepositController(DepositView depositView) {
         this.sqlClients = new SqlClients();
-        this.sqlAccounts = new SqlAccounts();
         this.depositView = depositView;
 
         this.depositView.searchClient(new SearchClientListener());
@@ -53,6 +49,11 @@ public class DepositController {
             if (client != null) {
                 int amount = Integer.parseInt(depositView.getDepositAmountField().getText());
                 boolean success = sqlClients.deposit(client, amount);
+
+                if (amount <= 0) {
+                        depositView.displayErrorMessage("Cantidad invalida");
+                        return;
+                }
 
                 if (success) {
                     client.getAccount().deposit(amount);
