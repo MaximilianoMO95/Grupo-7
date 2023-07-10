@@ -126,7 +126,7 @@ class ClientDataPanel extends JPanel {
                         updateRow("Apellido Materno: ", client.ap_materno, personalDataPanel);
                         updateRow("Domicilio: ", client.address, personalDataPanel);
                         updateRow("Comuna: ", client.comuna, personalDataPanel);
-                        updateRow("Telefono: ", client.address, personalDataPanel);
+                        updateRow("Telefono: ", client.tel, personalDataPanel);
 
                         Account account = client.getAccount();
                         updateRow("Numero: ", Integer.toString(account.getAccountNumber()), accountDataPanel);

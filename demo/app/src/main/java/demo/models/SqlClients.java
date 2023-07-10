@@ -73,7 +73,7 @@ public class SqlClients extends MysqlConnect {
 
                                 Account account = new Account(numeroCuenta, saldo, tipoCuenta);
 
-                                client = new Client(id, run, dv, name, ap_paterno, ap_materno, tel, address, comuna, account);
+                                client = new Client(id, run, dv, name, ap_paterno, ap_materno, address, comuna, tel, account);
                         }
 
                 } catch (SQLException e) {
@@ -112,7 +112,7 @@ public class SqlClients extends MysqlConnect {
 
                                 Account account = new Account(numeroCuenta, saldo, tipoCuenta);
 
-                                client = new Client(id, run, dv, name, ap_paterno, ap_materno, tel, address, comuna, account);
+                                client = new Client(id, run, dv, name, ap_paterno, ap_materno, address, comuna, tel, account);
                         }
 
                 } catch (SQLException e) {
