@@ -1,73 +1,69 @@
 package demo.controllers;
 
-/*
+
 import demo.models.Client;
-import demo.models.Database;
+import demo.models.SqlClients;
+import demo.models.SqlAccounts;
 import demo.views.DepositView;
 
-import java.util.List;
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class DepositController {
-        private String databaseFile = "src/main/java/demo/data/clients.json";
-        private Database<Client> database;
-        private DepositView depositView;
+    private SqlClients sqlClients;
+    private SqlAccounts sqlAccounts;
+    private DepositView depositView;
 
-        public DepositController(DepositView depositView) {
-                this.database = new Database<>(Client.class);
-                this.depositView = depositView;
+    public DepositController(DepositView depositView) {
+        this.sqlClients = new SqlClients();
+        this.sqlAccounts = new SqlAccounts();
+        this.depositView = depositView;
 
-                this.depositView.searchClient(e -> {
-                        String rut = depositView.getRunTextField().getText();
-                        List<Client> clients = database.readJsonFromFile(databaseFile);
-                        boolean found = false;
+        this.depositView.searchClient(new SearchClientListener());
+        this.depositView.depositBtn(new DepositBtnListener());
+    }
 
-                        if (clients != null) {
-                                for (Client client : clients) {
-                                        if (client.run.equals(rut)) {
-                                                found = true;
-                                                depositView.load(client);
-                                                break;
-                                        }
-                                }
-                        }
+    private class SearchClientListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            String run = depositView.getRunTextField().getText();
+            String dv = depositView.getDvTextField().getText();
+            run = run.replace(".", "").replace("-", "");
 
-                        if (!found) {
-                                depositView.displayErrorMessage("RUT no encontrado");
-                        }
-                });
+            Client client = sqlClients.searchByRun(run, dv);
 
-                this.depositView.depositBtn(e -> {
-                        String rut = depositView.getRunTextField().getText();
-                        List<Client> clients = database.readJsonFromFile(databaseFile);
-                        boolean found = false;
-
-                        if (clients != null) {
-                                int idx = 0;
-                                for (Client client : clients) {
-                                        if (client.run.equals(rut)) {
-                                                found = true;
-                                                depositToAccount(client, idx);
-                                                depositView.load(client);
-                                                break;
-                                        }
-
-                                        idx++;
-                                }
-                        }
-
-                        if (!found) {
-                                depositView.displayErrorMessage("RUT no encontrado");
-                        }
-                });
+            if (client != null) {
+                depositView.load(client, client.getAccount());
+            } else {
+                depositView.displayErrorMessage("RUT no encontrado");
+            }
         }
+    }
 
-        private void depositToAccount(Client client, int idx) {
+    private class DepositBtnListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            String run = depositView.getRunTextField().getText();
+            String dv = depositView.getDvTextField().getText();
+            run = run.replace(".", "").replace("-", "");
+
+            Client client = sqlClients.searchByRun(run, dv);
+
+            if (client != null) {
                 int amount = Integer.parseInt(depositView.getDepositAmountField().getText());
+                boolean success = sqlClients.deposit(client, amount);
 
-                client.getAccount().deposit(amount);
-                this.database.updateJsonItem(client, idx, databaseFile);
-
-                depositView.displayMessage("Depósito realizado con éxito. Nuevo saldo: " + client.getAccount().checkBalance());
+                if (success) {
+                    client.getAccount().deposit(amount);
+                    depositView.load(client, client.getAccount());
+                    depositView.displayMessage("Depósito realizado con éxito. Nuevo saldo: " + client.getAccount().checkBalance());
+                } else {
+                    depositView.displayErrorMessage("Error al realizar el depósito");
+                }
+            } else {
+                depositView.displayErrorMessage("RUT no encontrado");
+            }
         }
+    }
 }
-*/
