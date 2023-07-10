@@ -12,6 +12,7 @@ public class DepositView extends JPanel {
         private JLabel titleLabel;
         private JLabel messageLabel;
         private JTextField runTextField;
+        private JTextField dvTextField;
         private JButton searchButton;
         private JPanel infoPanel;
         private JLabel depositAmountLabel;
@@ -37,16 +38,23 @@ public class DepositView extends JPanel {
                 gbc.gridy = 1;
                 gbc.gridwidth = 2;
                 add(messageLabel, gbc);
+                
+               
 
                 // Rut
-                runTextField = new JTextField(20);
+                runTextField = new JTextField(15);
                 gbc.gridy = 2;
                 gbc.gridwidth = 1;
                 add(runTextField, gbc);
+                
+                // DV
+                dvTextField = new JTextField(1);
+                gbc.gridx = 1;
+                add(dvTextField, gbc);
 
                 // Buscar
                 searchButton = new JButton("Buscar");
-                gbc.gridx = 1;
+                gbc.gridx = 3;
                 add(searchButton, gbc);
 
                 // info cliente
@@ -73,7 +81,7 @@ public class DepositView extends JPanel {
 
                 // boton depositar
                 depositButton = new JButton("Depositar");
-                gbc.gridx = 1;
+                gbc.anchor = GridBagConstraints.PAGE_END;
                 gbc.gridy++;
                 add(depositButton, gbc);
                 depositButton.setVisible(false);
@@ -93,6 +101,9 @@ public class DepositView extends JPanel {
 
         public JTextField getRunTextField() {
                 return runTextField;
+        }
+         public JTextField getDvTextField() {
+                return dvTextField;
         }
 
         public void load(Client client, Account account) {
