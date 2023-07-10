@@ -208,6 +208,32 @@ public class SqlClients extends MysqlConnect {
         }
 
         public boolean transfer(Client srcClient, Client dstClient) {
-                return true;
+                String query1 = "UPDATE cliente SET saldo_cuenta = saldo_cuenta - ? WHERE id = ?";
+                String query2 = "UPDATE cliente SET saldo_cuenta = saldo_cuenta + ? WHERE id = ?";
+                boolean success = false;
+
+                try {
+                        Connection conn = connect();
+                        PreparedStatement srcClientps = conn.prepareStatement(query1);
+                        PreparedStatement dstClientps = conn.prepareStatement(query2);
+
+                        srcClientps.setInt(1, amount);
+                        srcClientps.setInt(2, client.id);
+
+                        dstClientps.setInt(1, amount);
+                        dstClientps.setInt(2, client.id);
+
+                        int rowsAffected = srcClientps.executeUpdate();
+                        int rowsAffected += dstClientps.executeUpdate();
+                        if (rowsAffected > 1) {
+                            success = true;
+                        }
+
+                } catch (SQLException e) {
+                        Logger.getLogger(SqlClients.class.getName()).log(Level.SEVERE, null, e);
+                        success = false;
+                }
+
+                return success;
         }
 }

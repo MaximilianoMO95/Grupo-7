@@ -18,16 +18,7 @@ public class MysqlConnect {
         private Connection connection;
 
         // Default
-        public MysqlConnect() {
-                Dotenv dotenv = Dotenv.configure()
-                        .directory(ENVDIR)
-                        .filename("config.env")
-                        .load();
-
-                DB_URL = dotenv.get("DB_URL");
-                DB_USER = dotenv.get("DB_USERNAME");
-                DB_PASSWORD = dotenv.get("DB_PASSWORD");
-        }
+        public MysqlConnect() { }
 
         public MysqlConnect(String fileName) {
                 Dotenv dotenv = Dotenv.configure()
