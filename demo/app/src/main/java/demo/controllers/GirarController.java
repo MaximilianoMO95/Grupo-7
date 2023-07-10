@@ -1,79 +1,64 @@
 package demo.controllers;
 
-/*
-import demo.models.Account;
-import demo.models.Client;
-import demo.models.Database;
+import demo.models.*;
+import demo.validations.ValidationUtils;
 import demo.views.GirarView;
 
-import java.util.List;
-
 public class GirarController {
-        private String databaseFile = "src/main/java/demo/data/clients.json";
-        private Database<Client> database;
+        private SqlClients sqlClient;
         private GirarView girarView;
+        private Client client;
 
         public GirarController(GirarView girarView) {
-                this.database = new Database<>(Client.class);
                 this.girarView = girarView;
+                this.sqlClient = new SqlClients();
 
                 this.girarView.searchClient(e -> {
-                        String rut = girarView.getRunTextField().getText();
-                        List<Client> clients = database.readJsonFromFile(databaseFile);
-                        boolean found = false;
+                        String run = girarView.getRunField();
+                        String dv = girarView.getDvField();
 
-                        if (clients != null) {
-                                for (Client client : clients) {
-                                        if (client.run.equals(rut)) {
-                                                found = true;
-                                                girarView.load(client);
-                                                break;
-                                        }
-                                }
+                        if (!ValidationUtils.validateDv(dv)) {
+                                girarView.displayErrorMessage("Digito verificador invalido");
+                                return;
+                        } else if (!ValidationUtils.validateRun(run)) {
+                                girarView.displayErrorMessage("RUT invalido");
+                                return;
                         }
 
-                        if (!found) {
+                        client = sqlClient.searchByRun(run, dv);
+
+                        if (client == null) {
                                 girarView.displayErrorMessage("RUT no encontrado");
+                                return;
                         }
+
+                        girarView.load(client);
+
                 });
 
                 girarView.withdrawBtn(ev -> { 
-                        String rut = girarView.getRunTextField().getText();
-                        List<Client> clients = database.readJsonFromFile(databaseFile);
-                        boolean found = false;
-
-                        if (clients != null) {
-                                int idx = 0;
-                                for (Client client : clients) {
-                                        if (client.run.equals(rut)) {
-                                                found = true;
-                                                withdrawFromAccount(client, idx);
-                                                girarView.load(client);
-                                                break;
-                                        }
-
-                                        idx++;
-                                }
-                        }
-                        
-                        if (!found) {
-                                girarView.displayErrorMessage("RUT no encontrado");
-                        }
+                        withdrawFromAccount(client);
+                        girarView.load(client);
                 });
         }
 
-        private void withdrawFromAccount(Client client, int idx) {
-                int amount = Integer.parseInt(girarView.getWithdrawAmountField().getText());
+        private void withdrawFromAccount(Client client) {
+                int amount = Integer.parseInt(girarView.getWithdrawAmountField());
                 Account account = client.getAccount();
 
-                if (account.checkBalance() >= amount) {
-                        account.withdraw(amount);
-                        this.database.updateJsonItem(client, idx, databaseFile);
-                        girarView.displayMessage("Retiro realizado con éxito. Nuevo saldo: " + account.checkBalance());
-                } else {
+                if (account.checkBalance() < amount) {
                         girarView.displayErrorMessage("Fondos insuficientes");
+                        return;
+                } else if (amount < 0) {
+                        girarView.displayErrorMessage("Nice Try");
+                        return;
                 }
 
+                if (sqlClient.withdraw(client, amount)) {
+                        account.withdraw(amount);
+                        girarView.displayMessage("Retiro realizado con éxito. Nuevo saldo: " + account.checkBalance());
+                } else {
+                        girarView.displayErrorMessage("Problemas de connecion intente mas tarde");
+                }
         }
 }
-*/

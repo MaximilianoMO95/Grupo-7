@@ -9,9 +9,8 @@ import java.awt.event.ActionListener;
 
 public class GirarView extends JPanel {
 
-        private JLabel titleLabel;
-        private JLabel messageLabel;
         private JTextField runTextField;
+        private JTextField dvTextField;
         private JButton searchButton;
         private JPanel infoPanel;
         private JLabel withdrawAmountLabel;
@@ -24,7 +23,7 @@ public class GirarView extends JPanel {
                 gbc.insets = new Insets(10, 10, 10, 10);
 
                 // "Buscar cliente"
-                titleLabel = new JLabel("Buscar cliente");
+                JLabel titleLabel = new JLabel("Buscar cliente");
                 titleLabel.setFont(titleLabel.getFont().deriveFont(Font.BOLD, 18f));
                 gbc.gridx = 0;
                 gbc.gridy = 0;
@@ -33,20 +32,28 @@ public class GirarView extends JPanel {
                 add(titleLabel, gbc);
 
                 // Ingrese el rut del cliente
-                messageLabel = new JLabel("Ingrese el rut del cliente");
-                gbc.gridy = 1;
+                JLabel messageLabel = new JLabel("Ingrese el rut del cliente");
+                JLabel dvLabel = new JLabel("-");
+                gbc.gridy++;
                 gbc.gridwidth = 2;
                 add(messageLabel, gbc);
 
                 // Rut
                 runTextField = new JTextField(20);
-                gbc.gridy = 2;
+                dvTextField = new JTextField(1);
+
+                gbc.gridy++;
                 gbc.gridwidth = 1;
                 add(runTextField, gbc);
 
+                gbc.gridx++;
+                add(dvLabel, gbc);
+                gbc.gridx++;
+                add(dvTextField, gbc);
+
                 // Buscar
                 searchButton = new JButton("Buscar");
-                gbc.gridx = 1;
+                gbc.gridx++;
                 add(searchButton, gbc);
 
                 // Client info
@@ -73,7 +80,7 @@ public class GirarView extends JPanel {
 
                 // Botón Girar
                 withdrawButton = new JButton("Girar");
-                gbc.gridx = 1;
+                gbc.anchor = GridBagConstraints.PAGE_END;
                 gbc.gridy++;
                 add(withdrawButton, gbc);
                 withdrawButton.setVisible(false);
@@ -91,8 +98,12 @@ public class GirarView extends JPanel {
                 withdrawAmountField.setVisible(false);
         }
 
-        public JTextField getRunTextField() {
-                return runTextField;
+        public String getRunField() {
+                return runTextField.getText();
+        }
+
+        public String getDvField() {
+                return dvTextField.getText();
         }
 
         public void load(Client client) {
@@ -130,15 +141,11 @@ public class GirarView extends JPanel {
                 JOptionPane.showMessageDialog(this, message);
         }
 
-        public JButton getWithdrawButton() {
-                return withdrawButton;
-        }
-
         public void withdrawBtn(ActionListener actionListener) {
                 withdrawButton.addActionListener(actionListener);
         }
 
-        public JTextField getWithdrawAmountField() {
-                return withdrawAmountField;
+        public String getWithdrawAmountField() {
+                return withdrawAmountField.getText();
         }
 }
