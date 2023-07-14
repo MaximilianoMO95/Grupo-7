@@ -207,7 +207,7 @@ public class SqlClients extends MysqlConnect {
                 return success;
         }
 
-        public boolean transfer(Client srcClient, Client dstClient) {
+        public boolean transfer(Client srcClient, Client dstClient, int amount) {
                 String query1 = "UPDATE cliente SET saldo_cuenta = saldo_cuenta - ? WHERE id = ?";
                 String query2 = "UPDATE cliente SET saldo_cuenta = saldo_cuenta + ? WHERE id = ?";
                 boolean success = false;

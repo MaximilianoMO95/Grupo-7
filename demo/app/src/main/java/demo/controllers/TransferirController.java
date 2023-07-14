@@ -62,7 +62,7 @@ public class TransferirController {
                                 return;
                         }
 
-                        if (sqlClients.transfer(srcClient, dstClient)) {
+                        if (sqlClients.transfer(srcClient, dstClient, amount)) {
                                 srcClient.getAccount().moneyTransfer(amount, dstClient.getAccount());
                                 transferirView.displayMessage("Transferencia realizada con éxito. Nuevo saldo: " + dstClient.getAccount().checkBalance());
                         } else {
