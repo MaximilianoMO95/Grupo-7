@@ -218,13 +218,13 @@ public class SqlClients extends MysqlConnect {
                         PreparedStatement dstClientps = conn.prepareStatement(query2);
 
                         srcClientps.setInt(1, amount);
-                        srcClientps.setInt(2, client.id);
+                        srcClientps.setInt(2, srcClient.id);
 
                         dstClientps.setInt(1, amount);
-                        dstClientps.setInt(2, client.id);
+                        dstClientps.setInt(2, dstClient.id);
 
                         int rowsAffected = srcClientps.executeUpdate();
-                        int rowsAffected += dstClientps.executeUpdate();
+                        rowsAffected += dstClientps.executeUpdate();
                         if (rowsAffected > 1) {
                             success = true;
                         }
